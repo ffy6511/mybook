@@ -4,9 +4,28 @@
   
   
   <entry>
+    <title>建站第一天</title>
+    <link href="/2025/01/08/%E5%BB%BA%E7%AB%99%E7%AC%AC%E4%B8%80%E5%A4%A9/"/>
+    <url>/2025/01/08/%E5%BB%BA%E7%AB%99%E7%AC%AC%E4%B8%80%E5%A4%A9/</url>
+    
+    <content type="html"><![CDATA[<p>原本在倒腾Astro框架的, 想着用自己一些微薄的前端经验可以更自由地在react框架下自定义博客.</p><p>然而发现Astro的文档<del>还不够丰富, 配置起来还真是麻烦</del>.折腾了几天, 还是放弃了. <strong>还是hexo真香</strong>.😊</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>杂记</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>My New Post</title>
-    <link href="/2025/01/08/My-New-Post/"/>
-    <url>/2025/01/08/My-New-Post/</url>
+    <link href="/2025/01/08/course_notes/My-New-Post/"/>
+    <url>/2025/01/08/course_notes/My-New-Post/</url>
     
     <content type="html"><![CDATA[<h3 id="犯错问题"><a href="#犯错问题" class="headerlink" title="犯错问题"></a>犯错问题</h3><p>第一类错误: $\alpha = P_{H_0为真} \{落在拒绝域\}$</p><p>第二类错误: $\beta = P_{H_0为假} \{落在接受域\}$ </p><p>解题策略:</p><ol><li>根据犯错类型求出包含参数的式子;</li><li>根据条件, 将参数构造成一个已知分布的整体(等式左右同时变形);</li><li>然后根据已知分布求解概率.</li></ol>]]></content>
     
@@ -17,13 +36,25 @@
   
   
   <entry>
-    <title>Hello World</title>
-    <link href="/2025/01/08/hello-world/"/>
-    <url>/2025/01/08/hello-world/</url>
+    <title>bird</title>
+    <link href="/2025/01/08/poets/bird/"/>
+    <url>/2025/01/08/poets/bird/</url>
     
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    <content type="html"><![CDATA[<p>我盘旋的目光是漂泊不息的倦鸟<br>越过人海 落入你乌黑瞳仁中的夜</p><style>.markdown-body {    font-size: 1.2em;    text-align: center;    line-height: 2em;}</style>]]></content>
     
     
+    <categories>
+      
+      <category>poets</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>poet</tag>
+      
+    </tags>
     
   </entry>
   
