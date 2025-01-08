@@ -1,0 +1,10 @@
+@font-face {
+    font-family: "wenkai";
+    src: url("/fonts/LXGWWenKaiGBScreen.ttf") format("truetype");
+
+    font-display: swap;  /* 可选：优化字体加载 */
+  }
+
+body, .markdown-body {
+    font-family: "wenkai", sans-serif;
+}
