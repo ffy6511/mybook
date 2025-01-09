@@ -8,3 +8,35 @@
 body, .markdown-body {
     font-family: "wenkai", sans-serif;
 }
+
+/* 为文章列表添加边框 */
+.index-card {
+  border: 1px solid rgba(var(--text-secondary-color-rgb), 0.4);
+  border-radius: 15px;
+  padding: 1rem;
+  padding-left: 0px;
+  margin-bottom: 1.5rem;
+  background: var(--background-color);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+/* 暗黑模式下的边框设置 */
+[data-user-color-scheme="dark"]{
+  .index-card {
+    border-color: rgba(152, 37, 37, 0.15);
+  }
+}
+
+/* 鼠标悬停效果 */
+.index-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px var(--shadow-color), 
+              0 4px 8px var(--shadow-color);
+}
+
+/* 点击效果 */
+.index-card:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
