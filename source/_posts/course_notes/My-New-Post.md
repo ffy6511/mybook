@@ -3,7 +3,7 @@ title: My New Post
 date: 2025-01-08 15:06:40
 tags: 
 math: true
-excerpt: tihs
+excerpt: 尝试修改简介
 ---
 ### 犯错问题
 

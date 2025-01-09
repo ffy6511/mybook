@@ -19,22 +19,23 @@
   <meta name="author" content="待抉">
   <meta name="keywords" content="">
   
-    <meta name="description" content="呜呜呜占位">
+    <meta name="description" content="利用媒体查询建立响应式的设计">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Bird">
-<meta property="og:url" content="http://example.com/2025/01/08/poets/bird/index.html">
+<meta property="og:title" content="媒体查询">
+<meta property="og:url" content="http://example.com/2025/01/08/%E5%AA%92%E4%BD%93%E6%9F%A5%E8%AF%A2/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="呜呜呜占位">
+<meta property="og:description" content="利用媒体查询建立响应式的设计">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-01-07T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-01-08T13:03:26.718Z">
+<meta property="og:image" content="http://example.com/img/Aniya_%E6%94%BE%E5%A4%A7%E9%95%9C.jpg">
+<meta property="article:published_time" content="2025-01-08T11:16:49.000Z">
+<meta property="article:modified_time" content="2025-01-09T05:13:10.013Z">
 <meta property="article:author" content="待抉">
-<meta property="article:tag" content="poet">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/Aniya_%E6%94%BE%E5%A4%A7%E9%95%9C.jpg">
   
   
   
-  <title>Bird - Hexo</title>
+  <title>媒体查询 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -255,7 +256,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Bird"></span>
+            <span id="subtitle" data-typed-text="媒体查询"></span>
           
         </div>
 
@@ -266,8 +267,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-01-08 00:00" pubdate>
-          星期三, 一月 8日 2025, 12:00 
+        <time datetime="2025-01-08 19:16" pubdate>
+          星期三, 一月 8日 2025, 7:16 
         </time>
       </span>
     
@@ -279,7 +280,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          40 words
+          893 words
         
       </span>
     
@@ -291,7 +292,7 @@
         
         
           <!-- compatible with older versions-->
-          1 min
+          8 min
         
       </span>
     
@@ -328,21 +329,64 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Bird</h1>
+            <h1 id="seo-header">媒体查询</h1>
             
             
               <div class="markdown-body">
                 
-                <p>我盘旋的目光是漂泊不息的倦鸟<br>越过人海 落入你乌黑瞳仁中的夜</p>
-<style>
+                <blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Learn_web_development/Core/CSS_layout/Media_queries">媒体查询入门指南</a><br><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_media_queries/Testing_media_queries">使用编程方法测试媒体查询</a></p>
+</blockquote>
+<h1 id="媒体查询入门"><a href="#媒体查询入门" class="headerlink" title="媒体查询入门"></a>媒体查询入门</h1><p>对于前端, 如果我们想实现响应式的设计, 那么媒体查询是必不可少的工具. 媒体查询可以帮助我们根据不同的设备和屏幕尺寸, 调整我们的网页的布局和样式.</p>
+<p>媒体查询的范式:<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@media</span> media-type <span class="hljs-keyword">and</span> (media-feature) &#123;<br>    <span class="hljs-comment">/*css rules*/</span><br>&#125;<br></code></pre></td></tr></table></figure></p>
+<blockquote>
+<ol>
+<li>媒体类型用于声明css文件被用作什么类型的媒体;</li>
+<li>媒体表达式用于指定媒体特征, 只有满足媒体特征的条件下, 才会应用css规则;</li>
+<li>通过测试且符合媒体类型的情况下应用内部的CSS样式.</li>
+</ol>
+</blockquote>
+<p><strong>media-type</strong>: all, print, screen, speech.</p>
+<h2 id="媒体特征"><a href="#媒体特征" class="headerlink" title="媒体特征"></a>媒体特征</h2><h3 id="屏幕尺寸"><a href="#屏幕尺寸" class="headerlink" title="屏幕尺寸"></a>屏幕尺寸</h3><p>使用<code>min</code>,<code>max</code>在一定的数值范围内启用当前的CSS样式.</p>
+<blockquote>
+<p>如果去掉前缀, 将仅在恰好为当前数值中启用.<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* 启用宽度大于或等于600px的屏幕 */</span><br><span class="hljs-keyword">@media</span> screen <span class="hljs-keyword">and</span> (<span class="hljs-attribute">max-width</span>: <span class="hljs-number">600px</span>)&#123;<br>    ...<br>&#125;<br><br><span class="hljs-comment">/* 启用宽度小于或等于600px的屏幕 */</span><br><span class="hljs-keyword">@media</span> screen <span class="hljs-keyword">and</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">600px</span>)&#123;<br>    ...<br>&#125;<br><br><span class="hljs-comment">/* 窗口恰好等于600px时 */</span><br><span class="hljs-keyword">@media</span> screen <span class="hljs-keyword">and</span> (<span class="hljs-attribute">width</span>: <span class="hljs-number">600px</span>) &#123;<br>    ...<br>&#125;<br></code></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="朝向"><a href="#朝向" class="headerlink" title="朝向"></a>朝向</h3><p><code>orientation</code>可以检测设备的方向, 如竖屏或横屏.<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@media</span> screen <span class="hljs-keyword">and</span> (<span class="hljs-attribute">orientation</span>: portrait) &#123;<br>    <span class="hljs-comment">/* 竖放时的CSS样式 */</span><br>&#125;<br><span class="hljs-keyword">@media</span> screen <span class="hljs-keyword">and</span> (<span class="hljs-attribute">orientation</span>: landscape) &#123;<br>    <span class="hljs-comment">/* 横屏时的CSS样式 */</span><br>&#125;<br></code></pre></td></tr></table></figure></p>
+<h2 id="更复杂的媒体查询"><a href="#更复杂的媒体查询" class="headerlink" title="更复杂的媒体查询"></a>更复杂的媒体查询</h2><ul>
+<li><p><code>and</code>实现与逻辑:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@media</span> screen <span class="hljs-keyword">and</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">400px</span>) <span class="hljs-keyword">and</span> (<span class="hljs-attribute">orientation</span>: landscape) &#123;<br>  <span class="hljs-selector-tag">body</span> &#123;<br>    <span class="hljs-attribute">color</span>: blue;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><code>,</code>实现或逻辑:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) <span class="hljs-keyword">and</span> (<span class="hljs-attribute">orientation</span>: landscape), (<span class="hljs-attribute">max-width</span>: <span class="hljs-number">480px</span>) &#123;<br>  <span class="hljs-comment">/* </span><br><span class="hljs-comment">  (屏幕宽度大于等于 768px 且屏幕方向为横向) 或 (屏幕宽度小于等于 480px)</span><br><span class="hljs-comment">  */</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>与C中的<code>&amp;</code>和<code>|</code>类似, 与的优先级更高, 先将<code>and</code>的条件进行判断, 然后视作整体.</p>
+</blockquote>
+</li>
+<li><p><code>not</code>实现非逻辑:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@media</span> <span class="hljs-keyword">not</span> all <span class="hljs-keyword">and</span> (<span class="hljs-attribute">orientation</span>: landscape) &#123;<br><span class="hljs-comment">/* 非全部屏幕且屏幕方向为横向 */</span><br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><code>not</code>实现 <strong>反转查询</strong>:</p>
+<blockquote>
+<p>与最近的<code>and</code>组合所绑定, 注意优先级</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@media</span> <span class="hljs-keyword">not</span> screen <span class="hljs-keyword">and</span> (<span class="hljs-attribute">color</span>), print <span class="hljs-keyword">and</span> (<span class="hljs-attribute">color</span>) &#123; ... &#125;<br></code></pre></td></tr></table></figure>
+<p><code>,</code>将媒体查询的表达式分为了前后两级, 因此上述的媒体查询等价于:<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@media</span> (<span class="hljs-keyword">not</span> (screen <span class="hljs-keyword">and</span> (<span class="hljs-attribute">color</span>))), print <span class="hljs-keyword">and</span> (<span class="hljs-attribute">color</span>) &#123; ... &#125;<br></code></pre></td></tr></table></figure></p>
+<hr>
+<h1 id="利用查询结果扩展设计"><a href="#利用查询结果扩展设计" class="headerlink" title="利用查询结果扩展设计"></a>利用查询结果扩展设计</h1><p>上述在CSS中利用<code>@media</code>可以实现响应式的设计, 如果我们希望在js/ts中使用媒体查询的结果呢? 利用媒体查询列表进行设计可以帮助我们实现更加自由的设计.</p>
+<ul>
+<li><p>使用<code>window.matchMedia()</code>方法存放媒体查询结果:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 检测设备的旋转方向是否为纵向</span><br><span class="hljs-keyword">var</span> mediaQueryList = <span class="hljs-variable language_">window</span>.<span class="hljs-title function_">matchMedia</span>(<span class="hljs-string">&quot;(orientation: portrait)&quot;</span>);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>检查属性<code>matches</code>获取对应的查询结果:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css">if (mediaQueryList<span class="hljs-selector-class">.matches</span>) &#123;<br>  <span class="hljs-comment">/* 设备的旋转方向为纵向 portrait */</span><br>&#125; else &#123;<br>  <span class="hljs-comment">/* 设备的旋转方向不是纵向，也就是横向 landscape */</span><br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>通过<code>addListener()</code>方法注册监听器, 持续监听查询列表的结果</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// 定义媒体查询字符串</span><br><span class="hljs-keyword">const</span> <span class="hljs-attr">mediaQueryString</span>: <span class="hljs-built_in">string</span> = <span class="hljs-string">&quot;(orientation: portrait)&quot;</span>;<br><br><span class="hljs-comment">// 创建查询列表</span><br><span class="hljs-keyword">const</span> <span class="hljs-attr">mediaQueryList</span>: <span class="hljs-title class_">MediaQueryList</span> = <span class="hljs-variable language_">window</span>.<span class="hljs-title function_">matchMedia</span>(mediaQueryString);<br><br><span class="hljs-comment">// 定义回调函数，使用 MediaQueryListEvent 类型</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">handleOrientationChange</span>(<span class="hljs-params"><span class="hljs-attr">event</span>: <span class="hljs-title class_">MediaQueryListEvent</span></span>): <span class="hljs-built_in">void</span> &#123;<br>  <span class="hljs-keyword">if</span> (event.<span class="hljs-property">matches</span>) &#123;<br>    <span class="hljs-comment">// 媒体查询匹配（竖屏）</span><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Orientation changed to portrait&quot;</span>);<br>    <span class="hljs-comment">// 在这里执行竖屏时的逻辑</span><br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-comment">// 媒体查询不匹配（横屏）</span><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Orientation changed to landscape&quot;</span>);<br>    <span class="hljs-comment">// 在这里执行横屏时的逻辑</span><br>  &#125;<br>&#125;<br><br><span class="hljs-comment">// 先运行一次回调函数，传入 MediaQueryList 对象</span><br><span class="hljs-title function_">handleOrientationChange</span>(&#123;<br>    <span class="hljs-attr">matches</span>: mediaQueryList.<span class="hljs-property">matches</span>,<br>    <span class="hljs-attr">media</span>: mediaQueryList.<span class="hljs-property">media</span>,<br>    <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;change&#x27;</span>,<br>&#125; <span class="hljs-keyword">as</span> <span class="hljs-title class_">MediaQueryListEvent</span>);<br><br><span class="hljs-comment">// 为查询列表注册监听器，同时将回调函数传给监听器</span><br>mediaQueryList.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;change&#x27;</span>, handleOrientationChange);<br><br><span class="hljs-comment">// (可选) 在组件卸载时或不再需要监听时，移除事件监听器</span><br><span class="hljs-comment">// mediaQueryList.removeEventListener(&#x27;change&#x27;, handleOrientationChange);</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
 
-.markdown-body {
-    font-size: 1.2em;
-    text-align: center;
-    line-height: 2em;
-}
-
-</style>
                 
               </div>
             
@@ -350,34 +394,6 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/poets/" class="category-chain-item">poets</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/poet/" class="print-no-link">#poet</a>
-      
-    </div>
   
 </div>
 
@@ -387,8 +403,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Bird</div>
-      <div>http://example.com/2025/01/08/poets/bird/</div>
+      <div>媒体查询</div>
+      <div>http://example.com/2025/01/08/媒体查询/</div>
     </div>
     <div class="license-meta">
       
@@ -406,7 +422,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2025年1月8日</div>
+          <div>2025年1月9日</div>
         </div>
       
       
@@ -437,15 +453,21 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/01/08/course_notes/My-New-Post/" title="My New Post">
+                      <a href="/2025/01/09/%E7%A4%BE%E4%BC%9A%E5%BF%83%E7%90%86%E5%AD%A6/" title="社会心理学">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">My New Post</span>
+                        <span class="hidden-mobile">社会心理学</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2025/01/08/css%E7%AC%94%E8%AE%B0/" title="css笔记">
+                        <span class="hidden-mobile">css笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
