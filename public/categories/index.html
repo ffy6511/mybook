@@ -65,7 +65,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"always","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -89,7 +89,12 @@
 
 
   
-<meta name="generator" content="Hexo 7.3.0"></head>
+<!-- hexo injector head_end start -->
+<script src="https://unpkg.com/@ant-design/icons@4.7.0/dist/index.umd.js"></script>
+<script>
+  window.antdIcons = window['@ant-design/icons']
+</script>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -334,22 +339,22 @@
     
     <div class="category row nomargin-x">
       <a class="category-item collapsed
-          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="poets"
-        id="heading-68c57542f2bccc247474ca7d9bd558b7" role="tab" data-toggle="collapse" href="#collapse-68c57542f2bccc247474ca7d9bd558b7"
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="随机掉落的文字碎片"
+        id="heading-21dd0884982c3d065da12e8783defe6d" role="tab" data-toggle="collapse" href="#collapse-21dd0884982c3d065da12e8783defe6d"
         aria-expanded="false"
       >
-        poets
+        随机掉落的文字碎片
         <span class="list-group-count"></span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-        <a href="/categories/poets/" class="category-count col-2 col-md-1 col-xm-1">
+        <a href="/categories/%E9%9A%8F%E6%9C%BA%E6%8E%89%E8%90%BD%E7%9A%84%E6%96%87%E5%AD%97%E7%A2%8E%E7%89%87/" class="category-count col-2 col-md-1 col-xm-1">
           <i class="iconfont icon-articles"></i>
           <span>1</span>
         </a>
       
-      <div class="category-collapse collapse " id="collapse-68c57542f2bccc247474ca7d9bd558b7"
-           role="tabpanel" aria-labelledby="heading-68c57542f2bccc247474ca7d9bd558b7">
+      <div class="category-collapse collapse " id="collapse-21dd0884982c3d065da12e8783defe6d"
+           role="tabpanel" aria-labelledby="heading-21dd0884982c3d065da12e8783defe6d">
         
         
           
@@ -358,10 +363,10 @@
     
       
       
-        <a href="/2025/01/08/poets/bird/" title="Bird"
+        <a href="/2025/01/08/poets/bird/" title="倦鸟"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">Bird</span>
+          <span class="category-post">倦鸟</span>
         </a>
       
     

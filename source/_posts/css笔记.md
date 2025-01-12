@@ -13,8 +13,8 @@ excerpt: css属性好多好复杂😶‍🌫️
 使用伪元素`before`和`after`可以为元素添加内容.
 ```html
 <div class="author">待抉</div>
-```
-```css
+
+<style>
 .author:before {
   content: "Author: ";
   font-weight: bold; /* 加粗字体 */
@@ -25,7 +25,26 @@ excerpt: css属性好多好复杂😶‍🌫️
   font-size: 1.2em; /* 调整图标大小 */
   margin-left: 5px; /* 添加左边距 */
 }
+</style>
 ```
+
+
+`:nth-child`可用于对序列中不同的元素进行有序的样式设计:
+```html
+<div class="index-card">内容1</div>
+<div class="index-card">内容2</div>
+<div class="index-card">内容3</div>
+<div class="index-card">内容4</div>
+
+<style>
+.index-card:nth-child(odd) {
+  flex-direction: row-reverse;
+}
+</style>
+```
+- 选择所有类名为 "index-card" 的元素;
+- `row-reverse` 会让 flex 容器中的项目从右到左排列;
+> 同理, `even`选择偶数位置的元素; `3n+1`等函数表达式也可以起作用.
 
 ### 基本的元素属性
 #### 布局属性

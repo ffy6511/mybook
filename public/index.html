@@ -65,7 +65,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"always","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -89,7 +89,12 @@
 
 
   
-<meta name="generator" content="Hexo 7.3.0"></head>
+<!-- hexo injector head_end start -->
+<script src="https://unpkg.com/@ant-design/icons@4.7.0/dist/index.umd.js"></script>
+<script>
+  window.antdIcons = window['@ant-design/icons']
+</script>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -282,6 +287,58 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+          <i class="index-pin iconfont icon-top" title="Pin on top"></i>
+        
+        <a href="/2025/01/08/%E5%BB%BA%E7%AB%99%E7%AC%AC%E4%B8%80%E5%A4%A9/" target="_self">
+          建站第一天
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/01/08/%E5%BB%BA%E7%AB%99%E7%AC%AC%E4%B8%80%E5%A4%A9/" target="_self">
+        <div>
+          鸽了好久的小博客终于诞生了
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-01-08 16:04" pubdate>
+              2025-01-08
+            </time>
+
+            
+
+              <span class="updated-time">
+                <i class="iconfont icon-pen"></i>
+                  2025-01-09
+              </span>
+            
+          
+
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%9D%82%E8%AE%B0/">#杂记</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2025/01/09/JavaScript/" target="_self">
           JavaScript
         </a>
@@ -301,6 +358,16 @@
             <time datetime="2025-01-09 14:06" pubdate>
               2025-01-09
             </time>
+
+            
+
+              <span class="updated-time">
+                <i class="iconfont icon-pen"></i>
+                  2025-01-09
+              </span>
+            
+          
+
           </div>
         
         
@@ -334,6 +401,16 @@
             <time datetime="2025-01-09 13:45" pubdate>
               2025-01-09
             </time>
+
+            
+
+              <span class="updated-time">
+                <i class="iconfont icon-pen"></i>
+                  2025-01-09
+              </span>
+            
+          
+
           </div>
         
         
@@ -383,7 +460,7 @@
       
       <a class="index-excerpt " href="/2025/01/09/%E7%A4%BE%E4%BC%9A%E5%BF%83%E7%90%86%E5%AD%A6/" target="_self">
         <div>
-          一些心理学
+          在专业基础课_社会心理学的教学内容基础上, 摘录个人感兴趣的部分, 同时补充了部分相关理论.
         </div>
       </a>
 
@@ -394,6 +471,16 @@
             <time datetime="2025-01-09 09:23" pubdate>
               2025-01-09
             </time>
+
+            
+
+              <span class="updated-time">
+                <i class="iconfont icon-pen"></i>
+                  2025-01-09
+              </span>
+            
+          
+
           </div>
         
         
@@ -433,6 +520,16 @@
             <time datetime="2025-01-08 19:16" pubdate>
               2025-01-08
             </time>
+
+            
+
+              <span class="updated-time">
+                <i class="iconfont icon-pen"></i>
+                  2025-01-09
+              </span>
+            
+          
+
           </div>
         
         
@@ -472,6 +569,16 @@
             <time datetime="2025-01-08 18:33" pubdate>
               2025-01-08
             </time>
+
+            
+
+              <span class="updated-time">
+                <i class="iconfont icon-pen"></i>
+                  2025-01-09
+              </span>
+            
+          
+
           </div>
         
         
@@ -504,18 +611,24 @@
   <div class="row mx-auto index-card">
     
     
-    <article class="col-12 col-md-12 mx-auto index-info">
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2025/01/08/poets/bird/" target="_self">
+          <img src="/img/%E5%80%A6%E9%B8%9F.png" srcset="/img/loading.gif" lazyload alt="倦鸟">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/01/08/%E5%BB%BA%E7%AB%99%E7%AC%AC%E4%B8%80%E5%A4%A9/" target="_self">
-          建站第一天
+        <a href="/2025/01/08/poets/bird/" target="_self">
+          倦鸟
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/01/08/%E5%BB%BA%E7%AB%99%E7%AC%AC%E4%B8%80%E5%A4%A9/" target="_self">
+      <a class="index-excerpt " href="/2025/01/08/poets/bird/" target="_self">
         <div>
-          鸽了好久的小博客终于诞生了
+          等一处栖居 🪶
         </div>
       </a>
 
@@ -523,17 +636,48 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2025-01-08 16:04" pubdate>
+            <time datetime="2025-01-08 16:10" pubdate>
               2025-01-08
             </time>
+
+            
+
+              <span class="updated-time">
+                <i class="iconfont icon-pen"></i>
+                  2025-01-09
+              </span>
+            
+          
+
           </div>
         
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%9A%8F%E6%9C%BA%E6%8E%89%E8%90%BD%E7%9A%84%E6%96%87%E5%AD%97%E7%A2%8E%E7%89%87/" class="category-chain-item">随机掉落的文字碎片</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
         
         
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%9D%82%E8%AE%B0/">#杂记</a>
+              <a href="/tags/poet/">#poet</a>
             
           </div>
         
@@ -566,70 +710,19 @@
             <time datetime="2025-01-08 15:06" pubdate>
               2025-01-08
             </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/01/08/poets/bird/" target="_self">
-          Bird
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/01/08/poets/bird/" target="_self">
-        <div>
-          呜呜呜占位
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-01-08 00:00" pubdate>
-              2025-01-08
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
             
 
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/poets/" class="category-chain-item">poets</a>
-  
-  
-
-      </span>
-    
-  
-</span>
+              <span class="updated-time">
+                <i class="iconfont icon-pen"></i>
+                  2025-01-08
+              </span>
+            
+          
 
           </div>
         
         
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/poet/">#poet</a>
-            
-          </div>
         
       </div>
     </article>

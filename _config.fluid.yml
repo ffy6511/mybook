@@ -63,8 +63,8 @@ code:
       # 在链接中挑选 style 填入
       # Select a style in the link
       # See: https://highlightjs.org/demo/
-      style: "github gist"
-      style_dark: "dark"
+      style: "github-dark-dimmed"
+      style_dark: "github-dark-dimmed"
 
     prismjs:
       # 在下方链接页面右侧的圆形按钮挑选 style 填入，也可以直接填入 css 链接
@@ -111,10 +111,10 @@ fun_features:
     placement: left
 
     # Options: hover | always
-    visible: hover
+    visible: always
 
     # Options: § | # | ❡
-    icon: ""
+    icon: "#"
 
   # 加载进度条
   # Progress bar when loading
@@ -619,7 +619,7 @@ post:
   # 在文章开头显示文章更新时间，该时间默认是 md 文件更新时间，可通过 front-matter 中 `updated` 手动指定（和 date 一样格式）
   # Update date is displayed at the beginning of the post. The default date is the update date of the md file, which can be manually specified by `updated` in front-matter (same format as date)
   updated:
-    enable: false
+    enable: true
 
     # 格式参照 ISO-8601 日期格式化
     # ISO-8601 date format

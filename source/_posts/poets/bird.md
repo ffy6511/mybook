@@ -1,11 +1,14 @@
 ---
-title: Bird
-date: 2025-01-08 00:00:00
+title: 倦鸟
+date: 2025-01-08 16:10:10
 tags: poet
-categories: poets
-excerpt: 呜呜呜占位
+categories: 随机掉落的文字碎片
+excerpt: 等一处栖居 🪶
+index_img: /img/倦鸟.png
+banner_img: /img/倦鸟.png
 ---
 我盘旋的目光是漂泊不息的倦鸟
+
 越过人海 落入你乌黑瞳仁中的夜
 
 <style>
@@ -13,7 +16,7 @@ excerpt: 呜呜呜占位
 .markdown-body {
     font-size: 1.2em;
     text-align: center;
-    line-height: 2em;
+    line-height: 3em;
 }
 
 </style>
