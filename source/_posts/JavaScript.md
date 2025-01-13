@@ -539,3 +539,394 @@ function setWeather() {
 > 3. 进而通过 **switch** 语句处理不同天气的情况, 并设置相应的文字内容;
 > 在线网页示例:[simple-switch](https://mdn.github.io/learning-area/javascript/building-blocks/simple-switch.html)
 
+
+## 事件介绍
+什么是$\underline{事件}$? 
+- 用户选择、点击或者光标悬停在某一元素;
+- 用户在键盘中按下某个按键;
+- 网页结束加载;
+- ...
+
+$\underline{事件处理器}$ 为了响应事件, 我们需要编写一份JS代码块用于在事件发生之后运行. 这样的代码块称之为~.
+
+### 处理点击事件
+以点击事件为例, 介绍html与js如何进行事件处理的交互:
+```html
+<button> 改变颜色 </button>
+```
+```js
+const btn = document.querySelector("button");
+
+function random(number){
+  return Math.floor(Math.random()*(number+1));
+  
+}
+
+btn.addEventListener("click", ()=>{
+  const rndCol = `rgb(${random(255)},${random(255)},${random(255)})`;
+  document.body.style.backgroundColor = rndCol;
+})
+```
+1. `Math.random()`方法生成一个介于[0,1)之间的随机数;
+2. `*(number+1)`之后利用向下取整的方法`Math.floor()`将其转换为整数, 范围为[0,number];
+> 假如输入的number为`4`, 则`random(4)`的结果可能为`0`, `1`, `2`, `3`, `4`中的一个;
+> 假设输入的number为`3.6`, 则输出的结果还是0~4中的整数.
+3. ``rndCol = `rgb(${random(255)},${random(255)},${random(255)})`` 采用的是在$\underline{模板字符串}$内部使用`${}`调用函数变量的方法.
+
+### addEventListener()
+`adEventListener`方法已经在之前的例子中出现过, 现在具体介绍其作用和语法.
+
+通过`EventTarget.adddEventListener()`的方法, 将指定的监听器注册到对象上, 具体的语法如下:
+```js
+addEventListener(type, listener);
+addEventListener(type, listener, options);
+addEventListener(type, listener, useCapture);
+```
+- `type`: 事件类型, 如`click`, `mouseover`, `mouseout`, `keydown`, `keyup`等;
+- `listener`: 事件处理函数, 该函数将在事件发生时被调用;
+  - 包括 **回调函数** 以及 实现了 **EventListener 接口的对象**;
+- `options`: 可选参数, 用于配置事件监听器的行为;
+
+#### listener
+
+$\underline{回调函数}$ 简单来说, ~指的是当某个事件发生时被调用的一段代码.
+- 是一个函数, 但是只有等到特定的事件发生时才会执行.
+
+$\underline{实现了 EventListener 接口的对象}$ 
+- **特点**: 以对象作为listener, 对象中具有名为`handleEvent()`的方法;
+- **作用**: 
+  - 将事件处理封装到一个对象当中, 可以更好地组织代码;
+  - 便于在对象中保存更多的状态信息;
+```js
+const listenerObject = {
+    count: 0,
+    handleEvent(event) {
+        this.count++;
+        console.log(`事件类型是：${event.type}，已触发 ${this.count} 次`);
+    }
+};
+
+const button = document.querySelector('button');
+button.addEventListener('click', listenerObject);
+```
+
+#### options
+一个指定有关 listener 属性的可选参数对象.
+##### Capture
+- 含义:
+  - 一个布尔值，表示 listener 会在该类型的事件捕获阶段传播到该 EventTarget 时触发;
+  - 默认为false, 表示只有在冒泡阶段才触发.
+
+- 区别:
+  - `capture`和`useCapture`实际上指的都是 **监听器是否在捕获阶段触发** 的布尔值.
+> 捕获阶段: 从最外层的元素开始, 逐层向内捕获事件, 直到事件到达目标元素.
+  - 后来DOM的规范更新时引入了`options`参数, 此后`capture`取代了`useCapture`的作用.
+  - 如果`addEventListener`的第三个参数不指定对象, 只有布尔值, 那么默认是在设置`useCapture`
+
+> 可以先查看[事件传播的阶段](#事件传播的阶段)来辅助理解不同的阶段.
+
+##### Once
+- 含义:
+  - 一个布尔值，表示 listener 在添加之后最多只调用一次;
+  - 默认为false, 表示可以多次调用.
+- e.g.
+```js
+child.addEventListener('click', () => {
+    console.log('子元素 - 目标阶段');
+},{once: true});
+```
+> `once`属性被设置为`true`, 当调用一次之后事件监听器会被自动清除. 因此只有第一次的点击才会console.
+
+##### Passive
+- 含义:
+  - 一个布尔值，设置为 true 时，表示 listener 永远不会调用 preventDefault();
+
+- 作用:
+  - 明确不会在`listener`中不会调用`preventDefault()`方法, 即不会阻止浏览器的[默认行为](#默认行为);
+  - 此时, 浏览器可以直接渲染默认行为的结果, 无需等待`listener`的执行与默认行为的检查, 从而提高了性能.
+- Notice:
+  - 如果设置`passive`为`true`, 则`listener`当中不可出现`preventDefault()`方法, 否则会报错.
+
+e.g.
+```js
+document.addEventListener('wheel',()=>{
+	event.preventDefault();
+  console.log("scrolling");
+},{passive: false});
+```
+- `wheel`事件的默认行为是滚动页面;
+- `event.preventDefault();`表示会阻止鼠标滚动带来的页面滚动;
+
+
+```js
+document.addEventListener('wheel',()=>{
+  console.log("scrolling");
+},{passive: true});
+```
+> 明确不会阻止默认行为, 浏览器可以直接渲染页面的滚动效果, 因此提高了显示的效果.
+
+```js
+document.addEventListener('wheel',()=>{
+  event.preventDefault();
+  console.log("scrolling");
+},{passive: true});
+```
+> `passive`的设置与`listener`内部矛盾, 将会报错.
+
+##### Signal
+用于有条件地移除事件监听器, 具体使用参见[可被移除的事件监听器](#可被移除的事件监听器).
+
+### 事件传播的阶段
+1. 捕获阶段 $\underline{capture\space phase}$: 事件从根节点开始向目标节点传播;
+> e.g. 点击事件从document开始传播, 经过html,body直到目标元素.
+2. 目标阶段阶段 $\underline{target\space phase}$: 事件到达目标元素;
+3. 冒泡阶段 $\underline{bubble\space phase}$: 事件从目标元素开始沿着DOM树向上传播.
+
+#### Case
+```html
+<div id="parent">
+  parent
+  <div id="child">child</div>
+</div>
+```
+```js
+const parent = document.querySelector('#parent');
+const child = document.querySelector('#child');
+
+parent.addEventListener('click', () => {
+    console.log('父元素 - 冒泡阶段');
+});
+
+parent.addEventListener('click', () => {
+    console.log('父元素 - 捕获阶段');
+}, { capture: true });
+
+child.addEventListener('click', () => {
+    console.log('子元素 - 目标阶段');
+});
+```
+上述的`child`被包裹在`parent`内部.
+- 当点击`parent`时将会显示:
+```bash
+"父元素 - 捕获阶段"
+"父元素 - 冒泡阶段"
+```
+> 由于设置了在捕获阶段就触发, 所以先触发了捕获阶段的监听器, 然后再触发冒泡阶段的监听器;
+
+- 当点击`child`时将会显示:
+```bash
+"父元素 - 捕获阶段"
+"子元素 - 目标阶段"
+"父元素 - 冒泡阶段"
+```
+> `child`是整个事件流的目标元素, 所以触发时机介于二者之间.
+
+#### Notice
+1. 如果将`div`换成`button`, 则点击`child`时可能只会显示 **目标** 阶段的输出.
+> 这是因为, 不同浏览器对于`button`元素的默认行为不同, 可能默认阻止了捕获阶段和冒泡阶段
+
+2.  `event.stopPropagation();`加入该~~咒语~~代码可以在此停止事件的传播, 比如可以在上述的捕获阶段监听器加入该代码:
+```js
+parent.addEventListener('click', () => {
+    console.log('父元素 - 捕获阶段');
+    event.stopPropagation();
+}, { capture: true });
+```
+> 此时, 点击`parent`时, 只会触发捕获阶段的监听器, 不会触发冒泡阶段的监听器.
+
+### 可被移除的监听器
+```html
+<table id="outside">
+  <tr>
+    <td id="t1">one</td>
+  </tr>
+  <tr>
+    <td id="t2">two</td>
+  </tr>
+</table>
+```
+```js
+// 为 table 添加可被移除的事件监听器
+const controller = new AbortController();
+const el = document.getElementById("outside");
+el.addEventListener("click", modifyText, { signal: controller.signal });
+
+// 改变 t2 内容的函数
+function modifyText() {
+  const t2 = document.getElementById("t2");
+  if (t2.firstChild.nodeValue === "three") {
+    t2.firstChild.nodeValue = "two";
+  } else {
+    t2.firstChild.nodeValue = "three";
+    controller.abort(); // 当值变为 "three" 后，移除监听器
+  }
+}
+```
+> - `AbortController`是一个构造函数, 用于创建一个可被移除的事件监听器的控制器;
+> - `signal`属性是一个`AbortSignal`对象, 用于控制监听器的移除;
+> - `controller.abort()`方法用于移除监听器;
+> - 当`t2`的内容变为"three"时, 移除监听器, 使得`modifyText`函数不再执行. 此后, 点击`t2`不会触发`modifyText`函数.
+
+具体的**构造步骤:**
+1. 创建一个`AbortController`实例: `const controller = new AbortController();`
+2. 在事件监听器内的参数中添加`signal: controller.signal`选项;
+3. 在需要移除监听器的地方调用`controller.abort()`方法;
+
+---
+
+我们也可以直接使用`removeEventListener()`方法来移除事件监听器:
+```js
+removeEventListener(type, listener);
+removeEventListener(type, listener, options);
+removeEventListener(type, listener, useCapture);
+```
+
+
+- Notices:
+  - 如果同一个对象上存在2个事件监听器, 且仅在`useCapture`参数存在差异, 那么需要先后2次调用`removeEventListener()`方法才能完全移除其事件监听器;
+  - 如果无法匹配当前注册的事件监听器, 那么该函数将不会起任何作用;
+  - `type`,`listener`参数必须完全匹配才能移除事件监听器;
+  - 对于`options`参数:
+    - 字段相同: 一定可以移除;
+    - 字段不同: 需要与默认值false匹配才可以移除.
+```js
+element.addEventListener("mousedown", handleMouseDown, { passive: true });
+
+element.removeEventListener("mousedown", handleMouseDown, { passive: true }); // 成功
+element.removeEventListener("mousedown", handleMouseDown, { capture: false }); // 成功
+element.removeEventListener("mousedown", handleMouseDown, { capture: true }); // 失败
+element.removeEventListener("mousedown", handleMouseDown, { passive: false }); // 成功
+element.removeEventListener("mousedown", handleMouseDown, false); // 成功
+element.removeEventListener("mousedown", handleMouseDown, true); // 失败
+```
+
+---
+**添加与移除**的结合使用:
+```js
+const body = document.querySelector("body");
+const clickTarget = document.getElementById("click-target");
+const mouseOverTarget = document.getElementById("mouse-over-target");
+
+let toggle = false;
+function makeBackgroundYellow() {
+  body.style.backgroundColor = toggle ? "white" : "yellow";
+
+  toggle = !toggle;
+}
+
+clickTarget.addEventListener("click", makeBackgroundYellow, false);
+
+mouseOverTarget.addEventListener("mouseover", () => {
+  clickTarget.removeEventListener("click", makeBackgroundYellow, false);
+});
+```
+
+
+### 使用匿名函数
+在上述`html`例子下:
+```js
+// 改变 t2 内容的函数
+function modifyText(new_text) {
+  const t2 = document.getElementById("t2");
+  t2.firstChild.nodeValue = new_text;
+}
+
+// 用匿名函数为 table 添加事件监听器
+const el = document.getElementById("outside");
+el.addEventListener(
+  "click",
+  function () {
+    modifyText("four");
+  },
+  false,
+);
+```
+通过匿名函数封装代码, 将参数传入函数`modifyText`, 使得函数可以被调用.
+
+### 使用箭头函数
+```js
+// 改变 t2 内容的函数
+function modifyText(new_text) {
+  var t2 = document.getElementById("t2");
+  t2.firstChild.nodeValue = new_text;
+}
+
+// 用箭头函数为 table 添加事件监听器
+const el = document.getElementById("outside");
+el.addEventListener(
+  "click",
+  () => {
+    modifyText("four");
+  },
+  false,
+);
+```
+通过`=>{}`形式的箭头函数简化代码书写.
+
+---
+#### 比较匿名与箭头
+匿名函数与箭头函数在此处的应用基本相同, 但是在`this`的指向上有所不同:
+- 匿名函数与其他普通的JS函数:`this`指向调用它的对象之作用域(如果没有直接调用关系, 默认为全局对象, 且严格模式下为`undefined`);
+```js
+function sayHello() {
+  console.log(this); // 在非严格模式下，this 指向 window
+}
+sayHello();
+```
+
+- 箭头函数的`this`继承自外部作用域, 即调用该方法的对象.
+```js
+const obj = {
+  name: "ZJU",
+  greet: function () {
+    console.log(this.name); // this 指向 obj
+  },
+};
+obj.greet(); // 输出：ZJU
+```
+
+- e.g.
+```js
+const obj = {
+  name: "ZJU",
+  getNameWithAnonymous: function () {
+    return function () {
+      console.log(this.name);
+    };
+  },
+  getNameWithArrow: function () {
+    return () => {
+      console.log(this.name);
+    };
+  },
+};
+
+const anonymousFn = obj.getNameWithAnonymous();
+anonymousFn(); // 输出：undefined
+
+const arrowFn = obj.getNameWithArrow();
+arrowFn(); // 输出：ZJU
+```
+> 进一步完善.
+
+# 补充
+## 默认行为
+$\underline{默认行为}$ 是指浏览器在某些事件发生时，自动执行的内置操作, 是浏览器的“默认反应”.
+
+- 比如存在以下的默认行为:
+  - 滚动事件：触摸屏上滑动手指，页面会滚动;
+  - 拖拽文件到浏览器：浏览器会尝试加载文件;
+  - 点击链接 `(<a href="...">)`：跳转到指定的 URL;
+
+$\underline{阻止默认行为}$ 使用 `event.preventDefault()` 方法可以阻止事件的默认行为.
+
+- e.g: 阻止链接跳转
+```js
+document.querySelector('a').addEventListener('click', function(event) {
+    event.preventDefault(); // 阻止点击链接时的默认行为
+    console.log('链接被点击，但没有跳转');
+});
+```
+
+- 作用:
+  - 通过阻止默认行为, 可以实现自定义逻辑.
