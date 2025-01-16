@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/JS.png">
 <meta property="article:published_time" content="2025-01-09T06:06:30.000Z">
-<meta property="article:modified_time" content="2025-01-13T03:11:25.903Z">
+<meta property="article:modified_time" content="2025-01-15T12:39:36.380Z">
 <meta property="article:author" content="待抉">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/img/JS.png">
@@ -285,7 +285,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          3.9k words
+          9.7k words
         
       </span>
     
@@ -297,7 +297,7 @@
         
         
           <!-- compatible with older versions-->
-          33 min
+          82 min
         
       </span>
     
@@ -339,7 +339,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年1月13日 上午
+                    本文最后更新于 2025年1月15日 晚上
                   
                 
               </p>
@@ -541,14 +541,420 @@
 <li>…</li>
 </ul>
 <p>$\underline{事件处理器}$ 为了响应事件, 我们需要编写一份JS代码块用于在事件发生之后运行. 这样的代码块称之为~.</p>
-<h3 id="处理点击事件"><a href="#处理点击事件" class="headerlink" title="处理点击事件"></a>处理点击事件</h3><p>以点击事件为例, 介绍html与js如何进行事件处理的交互:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span> 改变颜色 <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br></code></pre></td></tr></table></figure><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> btn = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&quot;button&quot;</span>);<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">random</span>(<span class="hljs-params">number</span>)&#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">random</span>()*(number+<span class="hljs-number">1</span>));<br>  <br>&#125;<br></code></pre></td></tr></table></figure></p>
+<h3 id="处理点击事件"><a href="#处理点击事件" class="headerlink" title="处理点击事件"></a>处理点击事件</h3><p>以点击事件为例, 介绍html与js如何进行事件处理的交互:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span> 改变颜色 <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br></code></pre></td></tr></table></figure><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> btn = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&quot;button&quot;</span>);<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">random</span>(<span class="hljs-params">number</span>)&#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">random</span>()*(number+<span class="hljs-number">1</span>));<br>  <br>&#125;<br><br>btn.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;click&quot;</span>, <span class="hljs-function">()=&gt;</span>&#123;<br>  <span class="hljs-keyword">const</span> rndCol = <span class="hljs-string">`rgb(<span class="hljs-subst">$&#123;random(<span class="hljs-number">255</span>)&#125;</span>,<span class="hljs-subst">$&#123;random(<span class="hljs-number">255</span>)&#125;</span>,<span class="hljs-subst">$&#123;random(<span class="hljs-number">255</span>)&#125;</span>)`</span>;<br>  <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-property">style</span>.<span class="hljs-property">backgroundColor</span> = rndCol;<br>&#125;)<br></code></pre></td></tr></table></figure></p>
 <ol>
 <li><code>Math.random()</code>方法生成一个介于[0,1)之间的随机数;</li>
 <li><code>*(number+1)</code>之后利用向下取整的方法<code>Math.floor()</code>将其转换为整数, 范围为[0,number];<blockquote>
 <p>假如输入的number为<code>4</code>, 则<code>random(4)</code>的结果可能为<code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code>中的一个;<br>假设输入的number为<code>3.6</code>, 则输出的结果还是0~4中的整数.</p>
 </blockquote>
 </li>
+<li><code>rndCol = `rgb($&#123;random(255)&#125;,$&#123;random(255)&#125;,$&#123;random(255)&#125;)</code> 采用的是在$\underline{模板字符串}$内部使用<code>$&#123;&#125;</code>调用函数变量的方法.</li>
 </ol>
+<h3 id="addEventListener"><a href="#addEventListener" class="headerlink" title="addEventListener()"></a>addEventListener()</h3><p><code>adEventListener</code>方法已经在之前的例子中出现过, 现在具体介绍其作用和语法.</p>
+<p>通过<code>EventTarget.adddEventListener()</code>的方法, 将指定的监听器注册到对象上, 具体的语法如下:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title function_">addEventListener</span>(type, listener);<br><span class="hljs-title function_">addEventListener</span>(type, listener, options);<br><span class="hljs-title function_">addEventListener</span>(type, listener, useCapture);<br></code></pre></td></tr></table></figure></p>
+<ul>
+<li><code>type</code>: 事件类型, 如<code>click</code>, <code>mouseover</code>, <code>mouseout</code>, <code>keydown</code>, <code>keyup</code>等;</li>
+<li><code>listener</code>: 事件处理函数, 该函数将在事件发生时被调用;<ul>
+<li>包括 <strong>回调函数</strong> 以及 实现了 <strong>EventListener 接口的对象</strong>;</li>
+</ul>
+</li>
+<li><code>options</code>: 可选参数, 用于配置事件监听器的行为;<blockquote>
+<p>可以为单个事件添加多个事件监听器.</p>
+<h4 id="listener"><a href="#listener" class="headerlink" title="listener"></a>listener</h4></blockquote>
+</li>
+</ul>
+<p>$\underline{回调函数}$ 简单来说, ~指的是当某个事件发生时被调用的一段代码.</p>
+<ul>
+<li>是一个函数, 但是只有等到特定的事件发生时才会执行.</li>
+</ul>
+<p>$\underline{实现了 EventListener 接口的对象}$ </p>
+<ul>
+<li><strong>特点</strong>: 以对象作为listener, 对象中具有名为<code>handleEvent()</code>的方法;</li>
+<li><strong>作用</strong>: <ul>
+<li>将事件处理封装到一个对象当中, 可以更好地组织代码;</li>
+<li>便于在对象中保存更多的状态信息;<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> listenerObject = &#123;<br>    <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>,<br>    <span class="hljs-title function_">handleEvent</span>(<span class="hljs-params">event</span>) &#123;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">count</span>++;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`事件类型是：<span class="hljs-subst">$&#123;event.type&#125;</span>，已触发 <span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>.count&#125;</span> 次`</span>);<br>    &#125;<br>&#125;;<br><br><span class="hljs-keyword">const</span> button = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;button&#x27;</span>);<br>button.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>, listenerObject);<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="options"><a href="#options" class="headerlink" title="options"></a>options</h4><p>一个指定有关 listener 属性的可选参数对象.</p>
+<h5 id="Capture"><a href="#Capture" class="headerlink" title="Capture"></a>Capture</h5><ul>
+<li><p>含义:</p>
+<ul>
+<li>一个布尔值，表示 listener 会在该类型的事件捕获阶段传播到该 EventTarget 时触发;</li>
+<li>默认为false, 表示只有在冒泡阶段才触发.</li>
+</ul>
+</li>
+<li><p>区别:</p>
+<ul>
+<li><code>capture</code>和<code>useCapture</code>实际上指的都是 <strong>监听器是否在捕获阶段触发</strong> 的布尔值.<blockquote>
+<p>捕获阶段: 从最外层的元素开始, 逐层向内捕获事件, 直到事件到达目标元素.</p>
+</blockquote>
+</li>
+<li>后来DOM的规范更新时引入了<code>options</code>参数, 此后<code>capture</code>取代了<code>useCapture</code>的作用.</li>
+<li>如果<code>addEventListener</code>的第三个参数不指定对象, 只有布尔值, 那么默认是在设置<code>useCapture</code></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>可以先查看<a href="#事件传播的阶段">事件传播的阶段</a>来辅助理解不同的阶段.</p>
+</blockquote>
+<h5 id="Once"><a href="#Once" class="headerlink" title="Once"></a>Once</h5><ul>
+<li>含义:<ul>
+<li>一个布尔值，表示 listener 在添加之后最多只调用一次;</li>
+<li>默认为false, 表示可以多次调用.</li>
+</ul>
+</li>
+<li>e.g.<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js">child.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;子元素 - 目标阶段&#x27;</span>);<br>&#125;,&#123;<span class="hljs-attr">once</span>: <span class="hljs-literal">true</span>&#125;);<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p><code>once</code>属性被设置为<code>true</code>, 当调用一次之后事件监听器会被自动清除. 因此只有第一次的点击才会console.</p>
+</blockquote>
+</li>
+</ul>
+<h5 id="Passive"><a href="#Passive" class="headerlink" title="Passive"></a>Passive</h5><ul>
+<li><p>含义:</p>
+<ul>
+<li>一个布尔值，设置为 true 时，表示 listener 永远不会调用 preventDefault();</li>
+</ul>
+</li>
+<li><p>作用:</p>
+<ul>
+<li>明确不会在<code>listener</code>中不会调用<code>preventDefault()</code>方法, 即不会阻止浏览器的<a href="#默认行为">默认行为</a>;</li>
+<li>此时, 浏览器可以直接渲染默认行为的结果, 无需等待<code>listener</code>的执行与默认行为的检查, 从而提高了性能.</li>
+</ul>
+</li>
+<li>Notice:<ul>
+<li>如果设置<code>passive</code>为<code>true</code>, 则<code>listener</code>当中不可出现<code>preventDefault()</code>方法, 否则会报错.</li>
+</ul>
+</li>
+</ul>
+<p>e.g.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable language_">document</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;wheel&#x27;</span>,<span class="hljs-function">()=&gt;</span>&#123;<br>	event.<span class="hljs-title function_">preventDefault</span>();<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;scrolling&quot;</span>);<br>&#125;,&#123;<span class="hljs-attr">passive</span>: <span class="hljs-literal">false</span>&#125;);<br></code></pre></td></tr></table></figure></p>
+<ul>
+<li><code>wheel</code>事件的默认行为是滚动页面;</li>
+<li><code>event.preventDefault();</code>表示会阻止鼠标滚动带来的页面滚动;</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable language_">document</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;wheel&#x27;</span>,<span class="hljs-function">()=&gt;</span>&#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;scrolling&quot;</span>);<br>&#125;,&#123;<span class="hljs-attr">passive</span>: <span class="hljs-literal">true</span>&#125;);<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>明确不会阻止默认行为, 浏览器可以直接渲染页面的滚动效果, 因此提高了显示的效果.</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable language_">document</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;wheel&#x27;</span>,<span class="hljs-function">()=&gt;</span>&#123;<br>  event.<span class="hljs-title function_">preventDefault</span>();<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;scrolling&quot;</span>);<br>&#125;,&#123;<span class="hljs-attr">passive</span>: <span class="hljs-literal">true</span>&#125;);<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p><code>passive</code>的设置与<code>listener</code>内部矛盾, 将会报错.</p>
+</blockquote>
+<h5 id="Signal"><a href="#Signal" class="headerlink" title="Signal"></a>Signal</h5><p>用于有条件地移除事件监听器, 具体使用参见<a href="#可被移除的监听器">可被移除的监听器</a>.</p>
+<h3 id="事件传播的阶段"><a href="#事件传播的阶段" class="headerlink" title="事件传播的阶段"></a>事件传播的阶段</h3><ol>
+<li>捕获阶段 $\underline{capture\space phase}$: 事件从根节点开始向目标节点传播;<blockquote>
+<p>e.g. 点击事件从document开始传播, 经过html,body直到目标元素.</p>
+</blockquote>
+</li>
+<li>目标阶段阶段 $\underline{target\space phase}$: 事件到达目标元素;</li>
+<li>冒泡阶段 $\underline{bubble\space phase}$: 事件从目标元素开始沿着DOM树向上传播.</li>
+</ol>
+<h4 id="Case"><a href="#Case" class="headerlink" title="Case"></a>Case</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;parent&quot;</span>&gt;</span><br>  parent<br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;child&quot;</span>&gt;</span>child<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> parent = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;#parent&#x27;</span>);<br><span class="hljs-keyword">const</span> child = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;#child&#x27;</span>);<br><br>parent.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;父元素 - 冒泡阶段&#x27;</span>);<br>&#125;);<br><br>parent.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;父元素 - 捕获阶段&#x27;</span>);<br>&#125;, &#123; <span class="hljs-attr">capture</span>: <span class="hljs-literal">true</span> &#125;);<br><br>child.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;子元素 - 目标阶段&#x27;</span>);<br>&#125;);<br></code></pre></td></tr></table></figure>
+<p>上述的<code>child</code>被包裹在<code>parent</code>内部.</p>
+<ul>
+<li><p>当点击<code>parent</code>时将会显示:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-string">&quot;父元素 - 捕获阶段&quot;</span><br><span class="hljs-string">&quot;父元素 - 冒泡阶段&quot;</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>由于设置了在捕获阶段就触发, 所以先触发了捕获阶段的监听器, 然后再触发冒泡阶段的监听器;</p>
+</blockquote>
+</li>
+<li><p>当点击<code>child</code>时将会显示:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-string">&quot;父元素 - 捕获阶段&quot;</span><br><span class="hljs-string">&quot;子元素 - 目标阶段&quot;</span><br><span class="hljs-string">&quot;父元素 - 冒泡阶段&quot;</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p><code>child</code>是整个事件流的目标元素, 所以触发时机介于二者之间.</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="Notice"><a href="#Notice" class="headerlink" title="Notice"></a>Notice</h4><ol>
+<li><p>如果将<code>div</code>换成<code>button</code>, 则点击<code>child</code>时可能只会显示 <strong>目标</strong> 阶段的输出.</p>
+<blockquote>
+<p>这是因为, 不同浏览器对于<code>button</code>元素的默认行为不同, 可能默认阻止了捕获阶段和冒泡阶段</p>
+</blockquote>
+</li>
+<li><p><code>event.stopPropagation();</code>加入该<del>咒语</del>代码可以在此停止事件的传播, 比如可以在上述的捕获阶段监听器加入该代码:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js">parent.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;父元素 - 捕获阶段&#x27;</span>);<br>    event.<span class="hljs-title function_">stopPropagation</span>();<br>&#125;, &#123; <span class="hljs-attr">capture</span>: <span class="hljs-literal">true</span> &#125;);<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>此时, 点击<code>parent</code>时, 只会触发捕获阶段的监听器, 不会触发冒泡阶段的监听器.</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="可被移除的监听器"><a href="#可被移除的监听器" class="headerlink" title="可被移除的监听器"></a>可被移除的监听器</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">table</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;outside&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;t1&quot;</span>&gt;</span>one<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;t2&quot;</span>&gt;</span>two<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 为 table 添加可被移除的事件监听器</span><br><span class="hljs-keyword">const</span> controller = <span class="hljs-keyword">new</span> <span class="hljs-title class_">AbortController</span>();<br><span class="hljs-keyword">const</span> el = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;outside&quot;</span>);<br>el.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;click&quot;</span>, modifyText, &#123; <span class="hljs-attr">signal</span>: controller.<span class="hljs-property">signal</span> &#125;);<br><br><span class="hljs-comment">// 改变 t2 内容的函数</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">modifyText</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> t2 = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;t2&quot;</span>);<br>  <span class="hljs-keyword">if</span> (t2.<span class="hljs-property">firstChild</span>.<span class="hljs-property">nodeValue</span> === <span class="hljs-string">&quot;three&quot;</span>) &#123;<br>    t2.<span class="hljs-property">firstChild</span>.<span class="hljs-property">nodeValue</span> = <span class="hljs-string">&quot;two&quot;</span>;<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    t2.<span class="hljs-property">firstChild</span>.<span class="hljs-property">nodeValue</span> = <span class="hljs-string">&quot;three&quot;</span>;<br>    controller.<span class="hljs-title function_">abort</span>(); <span class="hljs-comment">// 当值变为 &quot;three&quot; 后，移除监听器</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li><code>AbortController</code>是一个构造函数, 用于创建一个可被移除的事件监听器的控制器;</li>
+<li><code>signal</code>属性是一个<code>AbortSignal</code>对象, 用于控制监听器的移除;</li>
+<li><code>controller.abort()</code>方法用于移除监听器;</li>
+<li>当<code>t2</code>的内容变为”three”时, 移除监听器, 使得<code>modifyText</code>函数不再执行. 此后, 点击<code>t2</code>不会触发<code>modifyText</code>函数.</li>
+</ul>
+</blockquote>
+<p>具体的<strong>构造步骤:</strong></p>
+<ol>
+<li>创建一个<code>AbortController</code>实例: <code>const controller = new AbortController();</code></li>
+<li>在事件监听器内的参数中添加<code>signal: controller.signal</code>选项;</li>
+<li>在需要移除监听器的地方调用<code>controller.abort()</code>方法;</li>
+</ol>
+<hr>
+<p>我们也可以直接使用<code>removeEventListener()</code>方法来移除事件监听器:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title function_">removeEventListener</span>(type, listener);<br><span class="hljs-title function_">removeEventListener</span>(type, listener, options);<br><span class="hljs-title function_">removeEventListener</span>(type, listener, useCapture);<br></code></pre></td></tr></table></figure></p>
+<ul>
+<li>Notices:<ul>
+<li>如果同一个对象上存在2个事件监听器, 且仅在<code>useCapture</code>参数存在差异, 那么需要先后2次调用<code>removeEventListener()</code>方法才能完全移除其事件监听器;</li>
+<li>如果无法匹配当前注册的事件监听器, 那么该函数将不会起任何作用;</li>
+<li><code>type</code>,<code>listener</code>参数必须完全匹配才能移除事件监听器;</li>
+<li>对于<code>options</code>参数:<ul>
+<li>字段相同: 一定可以移除;</li>
+<li>字段不同: 需要与默认值false匹配才可以移除.<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js">element.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;mousedown&quot;</span>, handleMouseDown, &#123; <span class="hljs-attr">passive</span>: <span class="hljs-literal">true</span> &#125;);<br><br>element.<span class="hljs-title function_">removeEventListener</span>(<span class="hljs-string">&quot;mousedown&quot;</span>, handleMouseDown, &#123; <span class="hljs-attr">passive</span>: <span class="hljs-literal">true</span> &#125;); <span class="hljs-comment">// 成功</span><br>element.<span class="hljs-title function_">removeEventListener</span>(<span class="hljs-string">&quot;mousedown&quot;</span>, handleMouseDown, &#123; <span class="hljs-attr">capture</span>: <span class="hljs-literal">false</span> &#125;); <span class="hljs-comment">// 成功</span><br>element.<span class="hljs-title function_">removeEventListener</span>(<span class="hljs-string">&quot;mousedown&quot;</span>, handleMouseDown, &#123; <span class="hljs-attr">capture</span>: <span class="hljs-literal">true</span> &#125;); <span class="hljs-comment">// 失败</span><br>element.<span class="hljs-title function_">removeEventListener</span>(<span class="hljs-string">&quot;mousedown&quot;</span>, handleMouseDown, &#123; <span class="hljs-attr">passive</span>: <span class="hljs-literal">false</span> &#125;); <span class="hljs-comment">// 成功</span><br>element.<span class="hljs-title function_">removeEventListener</span>(<span class="hljs-string">&quot;mousedown&quot;</span>, handleMouseDown, <span class="hljs-literal">false</span>); <span class="hljs-comment">// 成功</span><br>element.<span class="hljs-title function_">removeEventListener</span>(<span class="hljs-string">&quot;mousedown&quot;</span>, handleMouseDown, <span class="hljs-literal">true</span>); <span class="hljs-comment">// 失败</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>添加与移除</strong>的结合使用:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> body = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&quot;body&quot;</span>);<br><span class="hljs-keyword">const</span> clickTarget = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;click-target&quot;</span>);<br><span class="hljs-keyword">const</span> mouseOverTarget = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;mouse-over-target&quot;</span>);<br><br><span class="hljs-keyword">let</span> toggle = <span class="hljs-literal">false</span>;<br><span class="hljs-keyword">function</span> <span class="hljs-title function_">makeBackgroundYellow</span>(<span class="hljs-params"></span>) &#123;<br>  body.<span class="hljs-property">style</span>.<span class="hljs-property">backgroundColor</span> = toggle ? <span class="hljs-string">&quot;white&quot;</span> : <span class="hljs-string">&quot;yellow&quot;</span>;<br><br>  toggle = !toggle;<br>&#125;<br><br>clickTarget.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;click&quot;</span>, makeBackgroundYellow, <span class="hljs-literal">false</span>);<br><br>mouseOverTarget.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;mouseover&quot;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>  clickTarget.<span class="hljs-title function_">removeEventListener</span>(<span class="hljs-string">&quot;click&quot;</span>, makeBackgroundYellow, <span class="hljs-literal">false</span>);<br>&#125;);<br></code></pre></td></tr></table></figure></p>
+<h3 id="使用匿名函数"><a href="#使用匿名函数" class="headerlink" title="使用匿名函数"></a>使用匿名函数</h3><p>在上述<code>html</code>例子下:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 改变 t2 内容的函数</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">modifyText</span>(<span class="hljs-params">new_text</span>) &#123;<br>  <span class="hljs-keyword">const</span> t2 = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;t2&quot;</span>);<br>  t2.<span class="hljs-property">firstChild</span>.<span class="hljs-property">nodeValue</span> = new_text;<br>&#125;<br><br><span class="hljs-comment">// 用匿名函数为 table 添加事件监听器</span><br><span class="hljs-keyword">const</span> el = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;outside&quot;</span>);<br>el.<span class="hljs-title function_">addEventListener</span>(<br>  <span class="hljs-string">&quot;click&quot;</span>,<br>  <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-title function_">modifyText</span>(<span class="hljs-string">&quot;four&quot;</span>);<br>  &#125;,<br>  <span class="hljs-literal">false</span>,<br>);<br></code></pre></td></tr></table></figure><br>通过匿名函数封装代码, 将参数传入函数<code>modifyText</code>, 使得函数可以被调用.</p>
+<h3 id="使用箭头函数"><a href="#使用箭头函数" class="headerlink" title="使用箭头函数"></a>使用箭头函数</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 改变 t2 内容的函数</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">modifyText</span>(<span class="hljs-params">new_text</span>) &#123;<br>  <span class="hljs-keyword">var</span> t2 = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;t2&quot;</span>);<br>  t2.<span class="hljs-property">firstChild</span>.<span class="hljs-property">nodeValue</span> = new_text;<br>&#125;<br><br><span class="hljs-comment">// 用箭头函数为 table 添加事件监听器</span><br><span class="hljs-keyword">const</span> el = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;outside&quot;</span>);<br>el.<span class="hljs-title function_">addEventListener</span>(<br>  <span class="hljs-string">&quot;click&quot;</span>,<br>  <span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-title function_">modifyText</span>(<span class="hljs-string">&quot;four&quot;</span>);<br>  &#125;,<br>  <span class="hljs-literal">false</span>,<br>);<br></code></pre></td></tr></table></figure>
+<p>通过<code>=&gt;&#123;&#125;</code>形式的箭头函数简化代码书写.</p>
+<hr>
+<h4 id="比较匿名与箭头"><a href="#比较匿名与箭头" class="headerlink" title="比较匿名与箭头"></a>比较匿名与箭头</h4><p>匿名函数与箭头函数在此处的应用基本相同, 但是在<code>this</code>的指向上有所不同:</p>
+<ul>
+<li><p>匿名函数与其他普通的JS函数:<code>this</code>指向调用它的对象之作用域(如果没有直接调用关系, 默认为全局对象, 且严格模式下为<code>undefined</code>);</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">sayHello</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>); <span class="hljs-comment">// 在非严格模式下，this 指向 window</span><br>&#125;<br><span class="hljs-title function_">sayHello</span>();<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>箭头函数的<code>this</code>继承自外部作用域, 即调用该方法的对象.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> obj = &#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;ZJU&quot;</span>,<br>  <span class="hljs-attr">greet</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>); <span class="hljs-comment">// this 指向 obj</span><br>  &#125;,<br>&#125;;<br>obj.<span class="hljs-title function_">greet</span>(); <span class="hljs-comment">// 输出：ZJU</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>e.g.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> obj = &#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;ZJU&quot;</span>,<br>  <span class="hljs-attr">getNameWithAnonymous</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>);<br>    &#125;;<br>  &#125;,<br>  <span class="hljs-attr">getNameWithArrow</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-function">() =&gt;</span> &#123;<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>);<br>    &#125;;<br>  &#125;,<br>&#125;;<br><br><span class="hljs-keyword">const</span> anonymousFn = obj.<span class="hljs-title function_">getNameWithAnonymous</span>();<br><span class="hljs-title function_">anonymousFn</span>(); <span class="hljs-comment">// 输出：undefined</span><br><br><span class="hljs-keyword">const</span> arrowFn = obj.<span class="hljs-title function_">getNameWithArrow</span>();<br><span class="hljs-title function_">arrowFn</span>(); <span class="hljs-comment">// 输出：ZJU</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>进一步完善.</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="事件对象"><a href="#事件对象" class="headerlink" title="事件对象"></a>事件对象</h3><p>$\underline{事件对象}$ 在事件处理函数的内部, 以固定指定名称出现的参数, 例如<code>event</code>,<code>e</code>,<code>evt</code>. 它被自动传递给事件处理函数，以提供额外的功能和信息。</p>
+<p><code>e.target</code>始终是对 <strong>事件刚刚发生的元素</strong> 的引用</p>
+<h2 id="表达式和运算符"><a href="#表达式和运算符" class="headerlink" title="表达式和运算符"></a>表达式和运算符</h2><h3 id="new"><a href="#new" class="headerlink" title="new()"></a>new()</h3><p>$\underline{new}$ 用来创建对象实例的一个关键字. </p>
+<ul>
+<li>作用: <strong>调用</strong> 一个 构造函数, 并返回一个由该构造函数创建的对象实例.<h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">new</span> constructor<br><span class="hljs-keyword">new</span> <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>)<br><span class="hljs-keyword">new</span> <span class="hljs-title function_">constructor</span>(<span class="hljs-params">arg1</span>)<br><span class="hljs-keyword">new</span> <span class="hljs-title function_">constructor</span>(<span class="hljs-params">arg1, arg2</span>)<br><span class="hljs-keyword">new</span> <span class="hljs-title function_">constructor</span>(<span class="hljs-params">arg1, arg2, <span class="hljs-comment">/* …, */</span> argN</span>)<br></code></pre></td></tr></table></figure></li>
+</ul>
+<ol>
+<li>如果没有指定参数, 默认为在不带参数的情况下调用构造函数. 即<code>new foo</code> 等价于 <code>new foo()</code>;</li>
+<li>构造函数内部的<code>this</code>将被绑定到新建的对象实例上;</li>
+</ol>
+<ul>
+<li>e.g. <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Car</span>(<span class="hljs-params">color, brand</span>) &#123;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">color</span> = color;   <span class="hljs-comment">// 将 color 赋值给新对象</span><br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">brand</span> = brand;   <span class="hljs-comment">// 将 brand 赋值给新对象</span><br>&#125;<br><br><span class="hljs-keyword">const</span> myCar = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Car</span>(<span class="hljs-string">&quot;red&quot;</span>, <span class="hljs-string">&quot;Toyota&quot;</span>);<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(myCar.<span class="hljs-property">color</span>); <span class="hljs-comment">// 输出 &quot;red&quot;</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(myCar.<span class="hljs-property">brand</span>); <span class="hljs-comment">// 输出 &quot;Toyota&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>使用<code>new()</code>的<strong>步骤</strong>:</p>
+<ol>
+<li>定义构造函数;</li>
+<li>使用<code>new()</code>并传入构造函数的参数;</li>
+<li>将返回的对象实例赋值给一个变量;</li>
+</ol>
+<h4 id="新增属性"><a href="#新增属性" class="headerlink" title="新增属性"></a>新增属性</h4><ul>
+<li><p>为已经定义的对象实例直接新增属性, 但是不会影响其他相同类型的对象和构造函数本身:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">car1.<span class="hljs-property">color</span> = <span class="hljs-string">&quot;black&quot;</span> <span class="hljs-comment">//为car1新增color属性</span><br></code></pre></td></tr></table></figure>
+<p><br></p>
+</li>
+<li><p>添加共享属性到构造函数中的<code>prototype</code>:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Car</span>(<span class="hljs-params"></span>) &#123;&#125;<br>car1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Car</span>();<br>car2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Car</span>();<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(car1.<span class="hljs-property">color</span>); <span class="hljs-comment">// undefined</span><br><br><span class="hljs-title class_">Car</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">color</span> = <span class="hljs-string">&quot;原色&quot;</span>;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(car1.<span class="hljs-property">color</span>); <span class="hljs-comment">// &#x27;原色&#x27;</span><br><br>car1.<span class="hljs-property">color</span> = <span class="hljs-string">&quot;黑色&quot;</span>;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(car1.<span class="hljs-property">color</span>); <span class="hljs-comment">// &#x27;黑色&#x27;</span><br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getPrototypeOf</span>(car1).<span class="hljs-property">color</span>); <span class="hljs-comment">// &#x27;原色&#x27;</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getPrototypeOf</span>(car2).<span class="hljs-property">color</span>); <span class="hljs-comment">// &#x27;原色&#x27;</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(car1.<span class="hljs-property">color</span>); <span class="hljs-comment">// &#x27;黑色&#x27;</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(car2.<span class="hljs-property">color</span>); <span class="hljs-comment">// &#x27;原色&#x27;</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>此处的构造函数名为<code>Car</code>, 因此通过<code>Car.prototype</code>可以访问到构造函数的原型对象;</li>
+<li><code>getPrototypeOf</code> 表示获取对象的<strong>原型对象</strong>, 因此此处均为最初定义的 <strong>原色</strong>.</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h4 id="new-target"><a href="#new-target" class="headerlink" title="new.target"></a>new.target</h4><p>函数通过<code>new.target</code>属性可以判断是否通过<code>new</code>关键字调用, 即构造.</p>
+<ul>
+<li>如果函数是正常调用, 则返回<code>undefined</code>;</li>
+<li><p>如果函数是通过<code>new</code>调用, 返回被调用的构造函数.</p>
+</li>
+<li><p>e.g.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Car</span>(<span class="hljs-params">color</span>) &#123;<br>  <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">new</span>.<span class="hljs-property">target</span>) &#123;<br>    <span class="hljs-comment">// 以函数的形式被调用。</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">$&#123;color&#125;</span>车`</span>;<br>  &#125;<br>  <span class="hljs-comment">// 通过 new 被调用。</span><br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">color</span> = color;<br>&#125;<br><br><span class="hljs-keyword">const</span> a = <span class="hljs-title class_">Car</span>(<span class="hljs-string">&quot;红&quot;</span>); <span class="hljs-comment">// a 是“红车”</span><br><span class="hljs-keyword">const</span> b = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Car</span>(<span class="hljs-string">&quot;红&quot;</span>); <span class="hljs-comment">// b 是 `Car &#123; color: &quot;红&quot; &#125;`</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="对象类型与实例"><a href="#对象类型与实例" class="headerlink" title="对象类型与实例"></a>对象类型与实例</h4><p>$\underline{对象类型}$ 通过构造函数可以创建一个对象类型:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Car</span>(<span class="hljs-params">make, model, year</span>) &#123;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">make</span> = make;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">model</span> = model;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">year</span> = year;<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<p>$\underline{对象实例}$ 通过使用<code>new()</code>方法, 由对象类型构造一个对象实例:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> myCar = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Car</span>(<span class="hljs-string">&quot;鹰牌&quot;</span>, <span class="hljs-string">&quot;Talon TSi&quot;</span>, <span class="hljs-number">1993</span>);<br></code></pre></td></tr></table></figure></p>
+<h4 id="类与new"><a href="#类与new" class="headerlink" title="类与new"></a>类与new</h4><p>在JS当中, 类 <strong>必须</strong> 通过<code>new</code>调用.</p>
+<blockquote>
+<p>可以优先阅读<a href="#类">类相关的知识</a></p>
+</blockquote>
+<ul>
+<li>e.g. <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Animal</span> &#123;<br>  <span class="hljs-comment">//构造函数</span><br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;<br>  &#125;<br>  <span class="hljs-comment">//实例方法</span><br>  <span class="hljs-title function_">greet</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`你好，我的名字是<span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>.name&#125;</span>`</span>);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+对于上述的类, 必须使用如下的调用方式:<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> animal = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Animal</span>(<span class="hljs-string">&quot;Dog&quot;</span>); <span class="hljs-comment">// 正常</span><br></code></pre></td></tr></table></figure>
+而下面这样类似于普通函数的调用方式会抛出错误:<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title class_">Animal</span>(<span class="hljs-string">&quot;Cat&quot;</span>); <span class="hljs-comment">// TypeError:  Class constructor Animal cannot be invoked without &#x27;new&#x27;</span><br></code></pre></td></tr></table></figure>
+<br></li>
+</ul>
+<p>在使用正确方法得到类的实例对象之后, 可以用访问属性的方式来调用实例方法:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">animal.<span class="hljs-title function_">greet</span>(); <span class="hljs-comment">// 输出 &quot;你好，我的名字是Dog&quot;</span><br></code></pre></td></tr></table></figure></p>
+<hr>
+<p>下面给出与普通函数的区别:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Car</span>(<span class="hljs-params">model</span>) &#123;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">model</span> = model;<br>&#125;<br><br><span class="hljs-keyword">const</span> car = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Car</span>(<span class="hljs-string">&quot;Toyota&quot;</span>); <span class="hljs-comment">// 正常</span><br><span class="hljs-title class_">Car</span>(<span class="hljs-string">&quot;Honda&quot;</span>); <span class="hljs-comment">// 不抛出错误，但 this 会指向全局对象.</span><br><span class="hljs-keyword">const</span> anotherCar = <span class="hljs-title class_">Car</span>(<span class="hljs-string">&quot;cat&quot;</span>); <span class="hljs-comment">//此时全局对象下的model值为 &quot;cat&quot;, 覆盖了上一行的定义.</span><br></code></pre></td></tr></table></figure><br>总结:</p>
+<ul>
+<li>以构造函数形式呈现的普通函数, 可以被直接调用, 但是此时内部的参数赋值给了全局对象;</li>
+<li>如果以new方法构造得到对象实例, 依旧正常.</li>
+</ul>
+<hr>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><h2 id="默认行为"><a href="#默认行为" class="headerlink" title="默认行为"></a>默认行为</h2><p>$\underline{默认行为}$ 是指浏览器在某些事件发生时，自动执行的内置操作, 是浏览器的“默认反应”.</p>
+<ul>
+<li>比如存在以下的默认行为:<ul>
+<li>滚动事件：触摸屏上滑动手指，页面会滚动;</li>
+<li>拖拽文件到浏览器：浏览器会尝试加载文件;</li>
+<li>点击链接 <code>(&lt;a href=&quot;...&quot;&gt;)</code>：跳转到指定的 URL;</li>
+</ul>
+</li>
+</ul>
+<p>$\underline{阻止默认行为}$ 使用 <code>event.preventDefault()</code> 方法可以阻止事件的默认行为.</p>
+<ul>
+<li><p>e.g: 阻止链接跳转</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;a&#x27;</span>).<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) &#123;<br>    event.<span class="hljs-title function_">preventDefault</span>(); <span class="hljs-comment">// 阻止点击链接时的默认行为</span><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;链接被点击，但没有跳转&#x27;</span>);<br>&#125;);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>作用:</p>
+<ul>
+<li>通过阻止默认行为, 可以实现自定义逻辑.</li>
+</ul>
+</li>
+</ul>
+<h2 id="this"><a href="#this" class="headerlink" title="this"></a>this</h2><ul>
+<li><code>this</code>可以视作函数的一个隐参数, 是在函数被执行时创建的绑定;</li>
+<li><code>this</code> 指向的是<strong>当前函数的调用者</strong>，而不是函数内部定义的变量.</li>
+</ul>
+<p><br></p>
+<ul>
+<li>e.g.<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> obj = &#123;<br>    <span class="hljs-attr">a</span>: <span class="hljs-string">&quot;a in the obj&quot;</span>,<br>    <span class="hljs-attr">b</span>: <span class="hljs-string">&quot;b in the obj&quot;</span>,<br>    <span class="hljs-attr">f</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-keyword">const</span> b = <span class="hljs-string">&quot;b in the function&quot;</span>; <span class="hljs-comment">// 函数作用域</span><br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">b</span>); <span class="hljs-comment">// 访问 this.b</span><br>    &#125;<br>&#125;;<br><br><span class="hljs-keyword">const</span> b = <span class="hljs-string">&quot;b outside of the func&quot;</span>;<br><br>obj.<span class="hljs-title function_">f</span>();<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>此处的<code>f</code></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="函数上下文中的this"><a href="#函数上下文中的this" class="headerlink" title="函数上下文中的this"></a>函数上下文中的this</h3><ul>
+<li><code>this</code>参数的值取决于函数<strong>如何</strong>被调用, 而不是函数如何被定义.<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 对象可以作为第一个参数传递给 &#x27;call&#x27; 或 &#x27;apply&#x27;，</span><br><span class="hljs-comment">// 并且 &#x27;this&#x27; 将被绑定到它。</span><br><span class="hljs-keyword">const</span> obj = &#123; <span class="hljs-attr">a</span>: <span class="hljs-string">&quot;Custom&quot;</span> &#125;;<br><br><span class="hljs-comment">// 使用 var 声明的变量成为 &#x27;globalThis&#x27; 的属性。</span><br><span class="hljs-keyword">var</span> a = <span class="hljs-string">&quot;Global&quot;</span>;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">whatsThis</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">a</span>; <span class="hljs-comment">// &#x27;this&#x27; 取决于函数如何被调用</span><br>&#125;<br><br><span class="hljs-title function_">whatsThis</span>(); <span class="hljs-comment">// &#x27;Global&#x27;; 在非严格模式下，&#x27;this&#x27; 参数默认为 &#x27;globalThis&#x27;</span><br>obj.<span class="hljs-property">whatsThis</span> = whatsThis;<br>obj.<span class="hljs-title function_">whatsThis</span>(); <span class="hljs-comment">// &#x27;Custom&#x27;; &#x27;this&#x27; 参数被绑定到 obj</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<ol>
+<li>同样是调用函数<code>whatsThis()</code>, 但是<code>this</code>参数被绑定到不同的对象上, 导致返回值不同;</li>
+<li>在非严格模式下, <code>this</code>参数默认指向<code>globalThis</code>, 即全局对象;</li>
+<li>对于典型函数, <code>this</code>指向函数访问的对象;</li>
+</ol>
+<ul>
+<li><p>e.g. </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> obj = &#123;<br>    <span class="hljs-attr">b</span>: <span class="hljs-string">&quot;b in the obj&quot;</span>,<br>    <span class="hljs-attr">f</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-keyword">const</span> b = <span class="hljs-string">&quot;b in the function&quot;</span>; <span class="hljs-comment">// 函数作用域</span><br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">b</span>); <span class="hljs-comment">// 访问 this.b</span><br>    &#125;<br>&#125;;<br><br><span class="hljs-keyword">const</span> b = <span class="hljs-string">&quot;b outside of the func&quot;</span>;<br><br>obj.<span class="hljs-title function_">f</span>();<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>此处<code>f</code>作为<code>obj</code>对象的方法被调用, 因此普通函数的<code>this</code>指向<code>obj</code>.</p>
+</blockquote>
+</li>
+<li><p>e.g. 直接调用的普通函数<code>this</code>指向全局:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> obj = &#123;<br>    <span class="hljs-attr">a</span>: <span class="hljs-string">&quot;a in the obj&quot;</span>,<br>    <span class="hljs-attr">f</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-keyword">const</span> funcA = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123; <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">a</span> &#125;; <span class="hljs-comment">// 普通函数，this 由调用方式决定</span><br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">funcA</span>()); <span class="hljs-comment">// 访问 this.a</span><br>    &#125;<br>&#125;;<br><br><span class="hljs-keyword">var</span> a = <span class="hljs-string">&quot;a in the global&quot;</span>;<br>obj.<span class="hljs-title function_">f</span>(); <span class="hljs-comment">// &quot;a in the global&quot;</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>此处的<code>funcA</code>并没有类似于作为对象的属性调用(<code>obj.funcA()</code>), 因此其<code>this</code>指向全局作用域(<code>window</code>), 输出<code>undefined</code>, 而是直接调用的形式, 因此其<code>this</code>指向全局作用域.</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h3 id="对this传值"><a href="#对this传值" class="headerlink" title="对this传值"></a>对this传值</h3><p>使用<code>call()</code>以及<code>apply()</code>方法可以将<code>this</code>绑定到其他对象上.</p>
+<h4 id="call"><a href="#call" class="headerlink" title="call()"></a>call()</h4><ul>
+<li>形式: <code>func.call(thisArg, arg1, arg2, ...)</code></li>
+<li>e.g:<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">add</span>(<span class="hljs-params">c, d</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">a</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">b</span> + c + d;<br>&#125;<br><br><span class="hljs-keyword">const</span> o = &#123; <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">3</span> &#125;;<br><br><span class="hljs-comment">// 第一个参数被绑定到隐式的 &#x27;this&#x27; 参数；</span><br><span class="hljs-comment">// 剩余的参数被绑定到命名参数。</span><br>add.<span class="hljs-title function_">call</span>(o, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>); <span class="hljs-comment">// 16</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="apply"><a href="#apply" class="headerlink" title="apply()"></a>apply()</h4><ul>
+<li>形式: <code>func.apply(thisArg, [argsArray])</code></li>
+<li>e.g:<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">add</span>(<span class="hljs-params">c, d</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">a</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">b</span> + c + d;<br>&#125;<br><br><span class="hljs-keyword">const</span> o = &#123; <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">3</span> &#125;;<br><br><span class="hljs-comment">// 第一个参数被绑定到隐式的 &#x27;this&#x27; 参数；</span><br><span class="hljs-comment">// 第二个参数是一个数组，其成员被绑定到命名参数。</span><br>add.<span class="hljs-title function_">apply</span>(o, [<span class="hljs-number">10</span>, <span class="hljs-number">20</span>]); <span class="hljs-comment">// 34</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="bind"><a href="#bind" class="headerlink" title="bind()"></a>bind()</h4><ul>
+<li>形式: <code>f.bind(someObject)</code>;</li>
+<li><strong>作用</strong>: <ul>
+<li>创建一个新的函数(需要重新赋值), 具有与<code>f</code>相同的函数体和作用域;</li>
+<li>新函数的<code>this</code>被 <strong>永久地</strong> 绑定到<code>someObject</code>, 不随调用方式的变化而变化.</li>
+</ul>
+</li>
+<li><strong>限制</strong>: <ul>
+<li><code>bind</code>无法多次生效. 即对函数f<code>bind</code>得到的g, 无法继续用<code>bind</code>得到期望的h;</li>
+</ul>
+</li>
+<li><p>e.g. 多次<code>bind</code>:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">a</span>;<br>&#125;<br><br><span class="hljs-keyword">const</span> g = f.<span class="hljs-title function_">bind</span>(&#123; <span class="hljs-attr">b</span>: <span class="hljs-string">&quot;azerty&quot;</span> &#125;);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">g</span>()); <span class="hljs-comment">// undefined</span><br><br><span class="hljs-keyword">const</span> h = g.<span class="hljs-title function_">bind</span>(&#123; <span class="hljs-attr">a</span>: <span class="hljs-string">&quot;yoo&quot;</span> &#125;); <span class="hljs-comment">// bind 只能生效一次！</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">h</span>()); <span class="hljs-comment">// undefined</span><br><br><span class="hljs-keyword">const</span> o = &#123; <span class="hljs-attr">a</span>: <span class="hljs-number">37</span>, f, g, h &#125;;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(o.<span class="hljs-property">a</span>, o.<span class="hljs-title function_">f</span>(), o.<span class="hljs-title function_">g</span>(), o.<span class="hljs-title function_">h</span>()); <span class="hljs-comment">// 37 37 undefined undefined</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>由于<code>bind</code>只能对一个原始函数作用, 因此由f得到的g无法继续由<code>bind</code>绑定<code>this</code>得到期望的h, 此处h的<code>this</code>依旧是<code>&#123;b: &quot;azerty&quot;&#125;</code>, 因此在输出对象<code>a</code>时显示<code>undefined</code>;</li>
+<li><code>o.f()</code>的调用是普通函数的调用, 因此其<code>this</code>继承自对象<code>o</code>, 输出<code>37</code>;</li>
+</ul>
+</blockquote>
+</li>
+<li><p>e.g. 对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">a</span> + <span class="hljs-string">&quot; &quot;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">c</span>;<br>&#125;<br><br><span class="hljs-keyword">const</span> g = f.<span class="hljs-title function_">bind</span>(&#123; <span class="hljs-attr">b</span>: <span class="hljs-string">&quot;azerty&quot;</span> , <span class="hljs-attr">c</span>:<span class="hljs-string">&quot;ccc&quot;</span>&#125;);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">g</span>()); <span class="hljs-comment">// &quot;undefined ccc&quot;</span><br><br><span class="hljs-keyword">const</span> h = g.<span class="hljs-title function_">bind</span>(&#123; <span class="hljs-attr">a</span>: <span class="hljs-string">&quot;yoo&quot;</span> &#125;); <span class="hljs-comment">// bind 只能生效一次！</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">h</span>()); <span class="hljs-comment">// &quot;undefined ccc&quot;</span><br><br><span class="hljs-keyword">const</span> o = &#123; <span class="hljs-attr">a</span>: <span class="hljs-number">37</span>, f, g, h &#125;;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(o.<span class="hljs-property">a</span>, o.<span class="hljs-title function_">f</span>(), o.<span class="hljs-title function_">g</span>(), o.<span class="hljs-title function_">h</span>()); <span class="hljs-comment">// 37 37 azerty azerty</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li><code>bind</code>绑定的<code>this</code>是永久覆盖, 而非简单叠加;</li>
+<li>由于<code>bind</code>绑定的<code>this</code>不随者调用方式的变化而变化, 因此即使处于对象<code>o</code>当中, <code>g</code>,<code>h</code>依旧不会输出<code>o</code>中的<code>a</code>.</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h3 id="箭头函数中的this"><a href="#箭头函数中的this" class="headerlink" title="箭头函数中的this"></a>箭头函数中的this</h3><p>使用 call()、apply() 或 bind() 调用箭头函数时，传入的 this 值会被忽略，但其他参数仍然会正常传递。</p>
+<p>普通函数:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> a = <span class="hljs-string">&quot;a in the global&quot;</span>;<br><span class="hljs-keyword">const</span> foo = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">a</span>&#125;;<br><br><span class="hljs-keyword">const</span> obj = &#123;<br> <span class="hljs-attr">a</span>: <span class="hljs-string">&quot;a in the obj&quot;</span>,<br> <span class="hljs-attr">f</span>: foo<br>&#125;;<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(obj.<span class="hljs-title function_">f</span>()); <span class="hljs-comment">// &quot;a in the obj&quot;</span><br></code></pre></td></tr></table></figure></p>
+<p><code>call()</code>、 <code>apply()</code>、 <code>bind()</code> 无法改变箭头函数的<code>this</code>(但是call与apply的其他参数可以正常传递:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">foo</span> = (<span class="hljs-params"></span>)=&gt; <span class="hljs-variable language_">this</span>.<span class="hljs-property">a</span>;<br><br><span class="hljs-keyword">const</span> obj = &#123;<br> <span class="hljs-attr">a</span>: <span class="hljs-string">&quot;a in the obj&quot;</span>,<br> <span class="hljs-attr">f</span>: foo.<span class="hljs-title function_">bind</span>(&#123;<span class="hljs-attr">a</span>:<span class="hljs-string">&quot;a in the bind&quot;</span>&#125;) <span class="hljs-comment">// 显式绑定 this 到 obj, 但是无法生效</span><br>&#125;;<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(obj.<span class="hljs-title function_">f</span>()); <span class="hljs-comment">// undefined</span><br><br></code></pre></td></tr></table></figure></p>
+<blockquote>
+<p>换成普通函数则输出<code>a in the obj</code>.</p>
+</blockquote>
+<ul>
+<li>全局作用域<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> a = <span class="hljs-string">&quot;a in the global&quot;</span>;<br><span class="hljs-keyword">const</span> <span class="hljs-title function_">foo1</span> = (<span class="hljs-params"></span>) =&gt; <span class="hljs-variable language_">this</span>.<span class="hljs-property">a</span>;<br><br><span class="hljs-keyword">const</span> obj = &#123;<br>	<span class="hljs-attr">a</span>: <span class="hljs-string">&quot;a in the obj&quot;</span>,<br>	<span class="hljs-attr">f</span>: <span class="hljs-function">()=&gt;</span> a<br>&#125;;<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(obj.<span class="hljs-title function_">f</span>());<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><p>$\underline{作用域}$ 指当前的执行上下文, 在其中的值和表达式可以被访问. </p>
+<ul>
+<li>全局作用域: 脚本模式运行所有代码的默认作用域;</li>
+<li>模块作用域: 模块模式中运行代码的作用域;</li>
+<li>函数作用域: 由函数创建的作用域</li>
+<li>块级作用域: 由<code>let</code>或<code>const</code>声明的变量的作用域.(对于<code>var</code>无效);</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js">&#123;<br>  <span class="hljs-keyword">var</span> x = <span class="hljs-number">1</span>;<br>&#125;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(x); <span class="hljs-comment">// 1</span><br><br>&#123;<br>  <span class="hljs-keyword">const</span> x = <span class="hljs-number">1</span>;<br>&#125;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(x); <span class="hljs-comment">// undefined</span><br></code></pre></td></tr></table></figure>
+<p>Notices:</p>
+<ul>
+<li>对象本身并不会创建作用域, 只是一个键值对的集合;</li>
+<li>箭头函数也不会创建自己的作用域, 而是 <strong>继承</strong> 外层作用域中的<code>this</code>;</li>
+</ul>
+<h3 id="变量与作用域"><a href="#变量与作用域" class="headerlink" title="变量与作用域"></a>变量与作用域</h3><ul>
+<li><code>var</code>在全局作用域中声明时会成为 <strong>全局对象</strong> (<code>window</code>或<code>global</code>)的属性;</li>
+<li><code>let</code>和<code>const</code>即使在全局作用域中声明, 也不会成为全局对象的属性;<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> a = <span class="hljs-string">&quot;1&quot;</span>;<br><span class="hljs-keyword">let</span> b = <span class="hljs-string">&quot;2&quot;</span>;<br><br><span class="hljs-variable language_">window</span>.<span class="hljs-property">a</span>; <span class="hljs-comment">// &quot;1&quot;</span><br><span class="hljs-variable language_">window</span>.<span class="hljs-property">b</span>; <span class="hljs-comment">// undefined</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>因此, 建议在全局作用域中不要使用<code>var</code>声明变量, 而使用<code>let</code>或<code>const</code>声明变量. 从而避免导致意外的覆盖和冲突.</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="函数与作用域"><a href="#函数与作用域" class="headerlink" title="函数与作用域"></a>函数与作用域</h3><h4 id="普通函数"><a href="#普通函数" class="headerlink" title="普通函数"></a>普通函数</h4><p>普通函数和匿名函数的作用域继承自其定义时的作用域.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> obj = &#123;<br>    <span class="hljs-attr">a</span>: <span class="hljs-string">&quot;a in the obj&quot;</span>,<br>    <span class="hljs-attr">insideObj</span>: &#123;<br>        <span class="hljs-attr">g</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">a</span>; <span class="hljs-comment">// 普通函数，this 动态绑定到 insideObj</span><br>        &#125;<br>    &#125;,<br>    <span class="hljs-attr">f</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">a</span>; <span class="hljs-comment">// 普通函数，this 动态绑定到 obj</span><br>    &#125;<br>&#125;;<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(obj.<span class="hljs-title function_">f</span>());        <span class="hljs-comment">// &quot;a in the obj&quot;</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(obj.<span class="hljs-property">insideObj</span>.<span class="hljs-title function_">g</span>()); <span class="hljs-comment">// undefined，因为 insideObj 中没有 a</span><br></code></pre></td></tr></table></figure></p>
+<h4 id="箭头函数-1"><a href="#箭头函数-1" class="headerlink" title="箭头函数"></a>箭头函数</h4><p>e.g. <strong>箭头函数继承外层作用域</strong>:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> a = <span class="hljs-string">&quot;a in the global&quot;</span>;<br><br><span class="hljs-keyword">const</span> obj = &#123;<br>    <span class="hljs-attr">a</span>: <span class="hljs-string">&quot;a in the obj&quot;</span>,<br>    <span class="hljs-attr">insideObj</span>: &#123;<br>        <span class="hljs-attr">g</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">a</span><br>    &#125;,<br>    <span class="hljs-attr">f</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">a</span><br>&#125;;<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(obj.<span class="hljs-title function_">f</span>());        <span class="hljs-comment">// &quot;a in the global&quot;</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(obj.<span class="hljs-property">insideObj</span>.<span class="hljs-title function_">g</span>()); <span class="hljs-comment">//&quot;a in the global&quot;</span><br></code></pre></td></tr></table></figure><br>由于对象不会创建作用域, 因此此处的箭头函数的<code>this</code>继承了外层作用域(window)的<code>this</code>, 且<code>var</code>创建的变量存在于全局作用域中.</p>
+<h2 id="语法糖"><a href="#语法糖" class="headerlink" title="语法糖"></a>语法糖</h2><p>$\underline{语法糖}$ 一种让代码更简洁、更易读的语法形式.</p>
+<ul>
+<li>本质上没有增加语言的功能, 而是对已有功能的 <strong>包装</strong> 或者优化;</li>
+<li><strong>可读性提升</strong>: <del>让代码更填</del> 使得代码更加容易理解和书写;</li>
+<li><strong>底层实现</strong>: 实质上依旧用基础的语法实现.</li>
+</ul>
+<h3 id="类"><a href="#类" class="headerlink" title="类"></a>类</h3><p>类 <code>class</code> 是 ES6 引入的语法糖, 它提供了面向对象编程的简洁语法. 本质上是对原型继承<code>prototype</code>的封装.</p>
+<p>使用<code>class</code>的写法:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Person</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;<br>  &#125;<br><br>  <span class="hljs-title function_">greet</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Hello, my name is <span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>.name&#125;</span>`</span>);<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> person = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Person</span>(<span class="hljs-string">&quot;Alice&quot;</span>);<br>person.<span class="hljs-title function_">greet</span>(); <span class="hljs-comment">// 输出：Hello, my name is Alice</span><br></code></pre></td></tr></table></figure></p>
+<p>等价的原型写法:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Person</span>(<span class="hljs-params">name</span>) &#123;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;<br>&#125;<br><br><span class="hljs-title class_">Person</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">greet</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Hello, my name is <span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>.name&#125;</span>`</span>);<br>&#125;;<br><br><span class="hljs-keyword">const</span> person = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Person</span>(<span class="hljs-string">&quot;Alice&quot;</span>);<br>person.<span class="hljs-title function_">greet</span>(); <span class="hljs-comment">// 输出：Hello, my name is Alice</span><br></code></pre></td></tr></table></figure></p>
+<h3 id="箭头函数-2"><a href="#箭头函数-2" class="headerlink" title="箭头函数"></a>箭头函数</h3><p>箭头函数简化了函数定义的书写, 其本质上依旧是一个普通函数, 因此也是语法糖的一种.</p>
+<ul>
+<li>e.g.<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 使用箭头函数</span><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">add</span> = (<span class="hljs-params">a, b</span>) =&gt; a + b;<br><br><span class="hljs-comment">// 等价的普通函数</span><br><span class="hljs-keyword">const</span> add = <span class="hljs-keyword">function</span> <span class="hljs-title function_">add</span>(<span class="hljs-params">a, b</span>) &#123;<br>  <span class="hljs-keyword">return</span> a + b;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="结构赋值"><a href="#结构赋值" class="headerlink" title="结构赋值"></a>结构赋值</h3><p>$\underline{结构赋值}$ 手动提取<strong>对象</strong>属性的语法糖.</p>
+<ul>
+<li><p>使用结构赋值:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> person = &#123;<span class="hljs-attr">name</span>:<span class="hljs-string">&quot;Zhuo&quot;</span>, <span class="hljs-attr">gender</span>:<span class="hljs-string">&quot;male&quot;</span>&#125;;<br><br><span class="hljs-keyword">const</span> &#123;name, gender&#125; = person;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>等价的原型写法:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> person = &#123;<span class="hljs-attr">name</span>:<span class="hljs-string">&quot;Zhuo&quot;</span>, <span class="hljs-attr">gender</span>:<span class="hljs-string">&quot;male&quot;</span>&#125;;<br><br><span class="hljs-keyword">const</span> name = person.<span class="hljs-property">name</span>;<br><span class="hljs-keyword">const</span> gender = person.<span class="hljs-property">gender</span>;<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="赋值规则"><a href="#赋值规则" class="headerlink" title="赋值规则"></a>赋值规则</h4><p>结构赋值时, 基于 <strong>属性名匹配</strong> 而非顺序.<br>因此, 对象结构的<code>&#123;&#125;</code>内部属性必须和 <strong>对象的属性名</strong> 相对应.</p>
+<p><strong>错误</strong>的示例:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> person = &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Alice&quot;</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">25</span> &#125;;<br><span class="hljs-keyword">const</span> &#123; a, b &#125; = person;<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(a); <span class="hljs-comment">// 输出：undefined</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(b); <span class="hljs-comment">// 输出：undefined</span><br></code></pre></td></tr></table></figure></p>
+<p><strong>重命名属性</strong>的写法:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> person = &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Alice&quot;</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">25</span> &#125;;<br><span class="hljs-keyword">const</span> &#123; <span class="hljs-attr">name</span>: a, <span class="hljs-attr">age</span>: b &#125; = person;<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(a); <span class="hljs-comment">// 输出：Alice</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(b); <span class="hljs-comment">// 输出：25</span><br></code></pre></td></tr></table></figure></p>
+<p><strong>手动赋值</strong>: 对于结构对象中不存在的属性, 可以采取普通赋值的方式与结构赋值相结合:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> person = &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Alice&quot;</span> &#125;;<br><span class="hljs-keyword">const</span> &#123; name, age = <span class="hljs-number">30</span> &#125; = person;<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(name); <span class="hljs-comment">// 输出：Alice</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(age);  <span class="hljs-comment">// 输出：30 （因为 person 中没有 age 属性，所以使用了默认值）</span><br></code></pre></td></tr></table></figure></p>
+<h4 id="数组的结构赋值"><a href="#数组的结构赋值" class="headerlink" title="数组的结构赋值"></a>数组的结构赋值</h4><p>上述讨论的结构赋值都是对 <strong>对象</strong> 的结构赋值, 对于数组同样可以结构赋值, 且赋值规则与对象相反—— <strong>基于顺序</strong>赋值:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">&quot;Alice&quot;</span>, <span class="hljs-number">25</span>];<br><span class="hljs-keyword">const</span> [a, b] = arr;<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(a); <span class="hljs-comment">// 输出：Alice</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(b); <span class="hljs-comment">// 输出：25</span><br></code></pre></td></tr></table></figure></p>
 
                 
               </div>
@@ -606,7 +1012,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2025年1月13日</div>
+          <div>2025年1月15日</div>
         </div>
       
       

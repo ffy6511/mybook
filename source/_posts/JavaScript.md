@@ -3,10 +3,12 @@ title: JavaScript
 date: 2025-01-09 14:06:30
 tags: 
 categories: 前端学习
-excerpt: 一种轻量级的、解释型的、面向对象的编程语言
+excerpt: 一种轻量级、解释型、面向对象的编程语言. 作为前端三件套之一以及TS的基础, JS语言细节十分难嚼. 本文在「料理的加护」下, 尽可能将JS处理得更加可口一些)
 math: true
-index_img: /img/JS.png
+index_img: /img/料理的加护.jpg
 ---
+> JavaScript是一种轻量级、解释型、面向对象的编程语言. 作为前端三件套之一以及TS的基础, JS语言细节十分难嚼. 本文在「**料理的加护**」下, 尽可能将JS处理得更加**可口**一些)
+<img src="/img/料理的加护.jpg" width = "35%">
 
 # 创建JS代码块
 ## 变量
@@ -586,7 +588,7 @@ addEventListener(type, listener, useCapture);
 - `listener`: 事件处理函数, 该函数将在事件发生时被调用;
   - 包括 **回调函数** 以及 实现了 **EventListener 接口的对象**;
 - `options`: 可选参数, 用于配置事件监听器的行为;
-
+> 可以为单个事件添加多个事件监听器.
 #### listener
 
 $\underline{回调函数}$ 简单来说, ~指的是当某个事件发生时被调用的一段代码.
@@ -674,7 +676,7 @@ document.addEventListener('wheel',()=>{
 > `passive`的设置与`listener`内部矛盾, 将会报错.
 
 ##### Signal
-用于有条件地移除事件监听器, 具体使用参见[可被移除的事件监听器](#可被移除的事件监听器).
+用于有条件地移除事件监听器, 具体使用参见[可被移除的监听器](#可被移除的监听器).
 
 ### 事件传播的阶段
 1. 捕获阶段 $\underline{capture\space phase}$: 事件从根节点开始向目标节点传播;
@@ -909,6 +911,158 @@ arrowFn(); // 输出：ZJU
 ```
 > 进一步完善.
 
+### 事件对象
+$\underline{事件对象}$ 在事件处理函数的内部, 以固定指定名称出现的参数, 例如`event`,`e`,`evt`. 它被自动传递给事件处理函数，以提供额外的功能和信息。
+
+`e.target`始终是对 **事件刚刚发生的元素** 的引用
+
+## 表达式和运算符
+### new()
+$\underline{new}$ 用来创建对象实例的一个关键字. 
+- 作用: **调用** 一个 构造函数, 并返回一个由该构造函数创建的对象实例.
+#### 语法
+```js
+new constructor
+new constructor()
+new constructor(arg1)
+new constructor(arg1, arg2)
+new constructor(arg1, arg2, /* …, */ argN)
+```
+1. 如果没有指定参数, 默认为在不带参数的情况下调用构造函数. 即`new foo` 等价于 `new foo()`;
+2. 构造函数内部的`this`将被绑定到新建的对象实例上;
+
+- e.g. 
+```js
+function Car(color, brand) {
+  this.color = color;   // 将 color 赋值给新对象
+  this.brand = brand;   // 将 brand 赋值给新对象
+}
+
+const myCar = new Car("red", "Toyota");
+
+console.log(myCar.color); // 输出 "red"
+console.log(myCar.brand); // 输出 "Toyota"
+```
+
+使用`new()`的**步骤**:
+ 1. 定义构造函数;
+ 2. 使用`new()`并传入构造函数的参数;
+ 3. 将返回的对象实例赋值给一个变量;
+
+#### 新增属性
+- 为已经定义的对象实例直接新增属性, 但是不会影响其他相同类型的对象和构造函数本身:
+```js
+car1.color = "black" //为car1新增color属性
+```
+<br>
+
+- 添加共享属性到构造函数中的`prototype`:
+```js
+function Car() {}
+car1 = new Car();
+car2 = new Car();
+
+console.log(car1.color); // undefined
+
+Car.prototype.color = "原色";
+console.log(car1.color); // '原色'
+
+car1.color = "黑色";
+console.log(car1.color); // '黑色'
+
+console.log(Object.getPrototypeOf(car1).color); // '原色'
+console.log(Object.getPrototypeOf(car2).color); // '原色'
+console.log(car1.color); // '黑色'
+console.log(car2.color); // '原色'
+```
+> - 此处的构造函数名为`Car`, 因此通过`Car.prototype`可以访问到构造函数的原型对象;
+> - `getPrototypeOf` 表示获取对象的**原型对象**, 因此此处均为最初定义的 **原色**.
+
+#### new.target
+函数通过`new.target`属性可以判断是否通过`new`关键字调用, 即构造.
+- 如果函数是正常调用, 则返回`undefined`;
+- 如果函数是通过`new`调用, 返回被调用的构造函数.
+
+- e.g.
+```js
+function Car(color) {
+  if (!new.target) {
+    // 以函数的形式被调用。
+    return `${color}车`;
+  }
+  // 通过 new 被调用。
+  this.color = color;
+}
+
+const a = Car("红"); // a 是“红车”
+const b = new Car("红"); // b 是 `Car { color: "红" }`
+```
+
+#### 对象类型与实例
+$\underline{对象类型}$ 通过构造函数可以创建一个对象类型:
+```js
+function Car(make, model, year) {
+  this.make = make;
+  this.model = model;
+  this.year = year;
+}
+```
+
+$\underline{对象实例}$ 通过使用`new()`方法, 由对象类型构造一个对象实例:
+```js
+const myCar = new Car("鹰牌", "Talon TSi", 1993);
+```
+
+#### 类与new
+在JS当中, 类 **必须** 通过`new`调用.
+> 可以优先阅读[类相关的知识](#类)
+
+- e.g. 
+```js
+class Animal {
+  //构造函数
+  constructor(name) {
+    this.name = name;
+  }
+  //实例方法
+  greet() {
+    console.log(`你好，我的名字是${this.name}`);
+  }
+}
+```
+对于上述的类, 必须使用如下的调用方式:
+```js
+const animal = new Animal("Dog"); // 正常
+```
+而下面这样类似于普通函数的调用方式会抛出错误:
+```js
+Animal("Cat"); // TypeError:  Class constructor Animal cannot be invoked without 'new'
+```
+<br>
+
+在使用正确方法得到类的实例对象之后, 可以用访问属性的方式来调用实例方法:
+```js
+animal.greet(); // 输出 "你好，我的名字是Dog"
+```
+
+---
+
+下面给出与普通函数的区别:
+```js
+function Car(model) {
+  this.model = model;
+}
+
+const car = new Car("Toyota"); // 正常
+Car("Honda"); // 不抛出错误，但 this 会指向全局对象.
+const anotherCar = Car("cat"); //此时全局对象下的model值为 "cat", 覆盖了上一行的定义.
+```
+总结:
+- 以构造函数形式呈现的普通函数, 可以被直接调用, 但是此时内部的参数赋值给了全局对象;
+- 如果以new方法构造得到对象实例, 依旧正常.
+
+---
+
 # 补充
 ## 默认行为
 $\underline{默认行为}$ 是指浏览器在某些事件发生时，自动执行的内置操作, 是浏览器的“默认反应”.
@@ -930,3 +1084,391 @@ document.querySelector('a').addEventListener('click', function(event) {
 
 - 作用:
   - 通过阻止默认行为, 可以实现自定义逻辑.
+
+## this
+
+- `this`可以视作函数的一个隐参数, 是在函数被执行时创建的绑定;
+- `this` 指向的是**当前函数的调用者**，而不是函数内部定义的变量.
+
+<br>
+
+- e.g.
+```js
+const obj = {
+    a: "a in the obj",
+    b: "b in the obj",
+    f: function() {
+        const b = "b in the function"; // 函数作用域
+        console.log(this.b); // 访问 this.b
+    }
+};
+
+const b = "b outside of the func";
+
+obj.f();
+```
+> 此处的`f`
+
+### 函数上下文中的this
+- `this`参数的值取决于函数**如何**被调用, 而不是函数如何被定义.
+```js
+// 对象可以作为第一个参数传递给 'call' 或 'apply'，
+// 并且 'this' 将被绑定到它。
+const obj = { a: "Custom" };
+
+// 使用 var 声明的变量成为 'globalThis' 的属性。
+var a = "Global";
+
+function whatsThis() {
+  return this.a; // 'this' 取决于函数如何被调用
+}
+
+whatsThis(); // 'Global'; 在非严格模式下，'this' 参数默认为 'globalThis'
+obj.whatsThis = whatsThis;
+obj.whatsThis(); // 'Custom'; 'this' 参数被绑定到 obj
+```
+1. 同样是调用函数`whatsThis()`, 但是`this`参数被绑定到不同的对象上, 导致返回值不同;
+2. 在非严格模式下, `this`参数默认指向`globalThis`, 即全局对象;
+3. 对于典型函数, `this`指向函数访问的对象;
+
+- e.g. 
+```js
+const obj = {
+    b: "b in the obj",
+    f: function() {
+        const b = "b in the function"; // 函数作用域
+        console.log(this.b); // 访问 this.b
+    }
+};
+
+const b = "b outside of the func";
+
+obj.f();
+```
+> 此处`f`作为`obj`对象的方法被调用, 因此普通函数的`this`指向`obj`.
+
+- e.g. 直接调用的普通函数`this`指向全局:
+```js
+const obj = {
+    a: "a in the obj",
+    f: function() {
+        const funcA = function () { return this.a }; // 普通函数，this 由调用方式决定
+        console.log(funcA()); // 访问 this.a
+    }
+};
+
+var a = "a in the global";
+obj.f(); // "a in the global"
+```
+> - 此处的`funcA`并没有类似于作为对象的属性调用(`obj.funcA()`), 因此其`this`指向全局作用域(`window`), 输出`undefined`, 而是直接调用的形式, 因此其`this`指向全局作用域.
+
+
+
+
+
+### 对this传值
+使用`call()`以及`apply()`方法可以将`this`绑定到其他对象上.
+#### call()
+- 形式: `func.call(thisArg, arg1, arg2, ...)`
+- e.g:
+```js
+function add(c, d) {
+  return this.a + this.b + c + d;
+}
+
+const o = { a: 1, b: 3 };
+
+// 第一个参数被绑定到隐式的 'this' 参数；
+// 剩余的参数被绑定到命名参数。
+add.call(o, 5, 7); // 16
+```
+
+#### apply()
+- 形式: `func.apply(thisArg, [argsArray])`
+- e.g:
+```js
+function add(c, d) {
+  return this.a + this.b + c + d;
+}
+
+const o = { a: 1, b: 3 };
+
+// 第一个参数被绑定到隐式的 'this' 参数；
+// 第二个参数是一个数组，其成员被绑定到命名参数。
+add.apply(o, [10, 20]); // 34
+```
+
+#### bind()
+- 形式: `f.bind(someObject)`;
+- **作用**: 
+  - 创建一个新的函数(需要重新赋值), 具有与`f`相同的函数体和作用域;
+  - 新函数的`this`被 **永久地** 绑定到`someObject`, 不随调用方式的变化而变化.
+- **限制**: 
+  - `bind`无法多次生效. 即对函数f`bind`得到的g, 无法继续用`bind`得到期望的h;
+- e.g. 多次`bind`:
+```js
+function f() {
+  return this.a;
+}
+
+const g = f.bind({ b: "azerty" });
+console.log(g()); // undefined
+
+const h = g.bind({ a: "yoo" }); // bind 只能生效一次！
+console.log(h()); // undefined
+
+const o = { a: 37, f, g, h };
+console.log(o.a, o.f(), o.g(), o.h()); // 37 37 undefined undefined
+```
+> - 由于`bind`只能对一个原始函数作用, 因此由f得到的g无法继续由`bind`绑定`this`得到期望的h, 此处h的`this`依旧是`{b: "azerty"}`, 因此在输出对象`a`时显示`undefined`;
+> - `o.f()`的调用是普通函数的调用, 因此其`this`继承自对象`o`, 输出`37`;
+
+- e.g. 对象
+```js
+function f() {
+  return this.a + " " + this.c;
+}
+
+const g = f.bind({ b: "azerty" , c:"ccc"});
+console.log(g()); // "undefined ccc"
+
+const h = g.bind({ a: "yoo" }); // bind 只能生效一次！
+console.log(h()); // "undefined ccc"
+
+const o = { a: 37, f, g, h };
+console.log(o.a, o.f(), o.g(), o.h()); // 37 37 azerty azerty
+```
+> - `bind`绑定的`this`是永久覆盖, 而非简单叠加;
+> - 由于`bind`绑定的`this`不随者调用方式的变化而变化, 因此即使处于对象`o`当中, `g`,`h`依旧不会输出`o`中的`a`.
+
+### 箭头函数中的this
+
+
+使用 call()、apply() 或 bind() 调用箭头函数时，传入的 this 值会被忽略，但其他参数仍然会正常传递。
+
+
+普通函数:
+```js
+const a = "a in the global";
+const foo = function () {return this.a};
+
+const obj = {
+ a: "a in the obj",
+ f: foo
+};
+
+console.log(obj.f()); // "a in the obj"
+```
+
+`call()`、 `apply()`、 `bind()` 无法改变箭头函数的`this`(但是call与apply的其他参数可以正常传递:
+```js
+const foo = ()=> this.a;
+
+const obj = {
+ a: "a in the obj",
+ f: foo.bind({a:"a in the bind"}) // 显式绑定 this 到 obj, 但是无法生效
+};
+
+console.log(obj.f()); // undefined
+
+```
+> 换成普通函数则输出`a in the obj`.
+
+
+- 全局作用域
+```js
+var a = "a in the global";
+const foo1 = () => this.a;
+
+const obj = {
+	a: "a in the obj",
+	f: ()=> a
+};
+
+console.log(obj.f());
+```
+
+## 作用域
+$\underline{作用域}$ 指当前的执行上下文, 在其中的值和表达式可以被访问. 
+- 全局作用域: 脚本模式运行所有代码的默认作用域;
+- 模块作用域: 模块模式中运行代码的作用域;
+- 函数作用域: 由函数创建的作用域
+- 块级作用域: 由`let`或`const`声明的变量的作用域.(对于`var`无效);
+
+```js
+{
+  var x = 1;
+}
+console.log(x); // 1
+
+{
+  const x = 1;
+}
+console.log(x); // undefined
+```
+
+Notices:
+- 对象本身并不会创建作用域, 只是一个键值对的集合;
+- 箭头函数也不会创建自己的作用域, 而是 **继承** 外层作用域中的`this`;
+
+### 变量与作用域
+- `var`在全局作用域中声明时会成为 **全局对象** (`window`或`global`)的属性;
+- `let`和`const`即使在全局作用域中声明, 也不会成为全局对象的属性;
+```js
+var a = "1";
+let b = "2";
+
+window.a; // "1"
+window.b; // undefined
+```
+> 因此, 建议在全局作用域中不要使用`var`声明变量, 而使用`let`或`const`声明变量. 从而避免导致意外的覆盖和冲突.
+
+
+### 函数与作用域
+#### 普通函数
+普通函数和匿名函数的作用域继承自其定义时的作用域.
+```js
+const obj = {
+    a: "a in the obj",
+    insideObj: {
+        g: function() {
+            return this.a; // 普通函数，this 动态绑定到 insideObj
+        }
+    },
+    f: function() {
+        return this.a; // 普通函数，this 动态绑定到 obj
+    }
+};
+
+console.log(obj.f());        // "a in the obj"
+console.log(obj.insideObj.g()); // undefined，因为 insideObj 中没有 a
+```
+
+#### 箭头函数
+e.g. **箭头函数继承外层作用域**:
+```js
+var a = "a in the global";
+
+const obj = {
+    a: "a in the obj",
+    insideObj: {
+        g: () => this.a
+    },
+    f: () => this.a
+};
+
+console.log(obj.f());        // "a in the global"
+console.log(obj.insideObj.g()); //"a in the global"
+```
+由于对象不会创建作用域, 因此此处的箭头函数的`this`继承了外层作用域(window)的`this`, 且`var`创建的变量存在于全局作用域中.
+
+## 语法糖
+$\underline{语法糖}$ 一种让代码更简洁、更易读的语法形式.
+- 本质上没有增加语言的功能, 而是对已有功能的 **包装** 或者优化;
+- **可读性提升**: ~~让代码更填~~ 使得代码更加容易理解和书写;
+- **底层实现**: 实质上依旧用基础的语法实现.
+
+### 类
+类 `class` 是 ES6 引入的语法糖, 它提供了面向对象编程的简洁语法. 本质上是对原型继承`prototype`的封装.
+
+使用`class`的写法:
+```js
+class Person {
+  constructor(name) {
+    this.name = name;
+  }
+
+  greet() {
+    console.log(`Hello, my name is ${this.name}`);
+  }
+}
+
+const person = new Person("Alice");
+person.greet(); // 输出：Hello, my name is Alice
+```
+
+等价的原型写法:
+```js
+function Person(name) {
+  this.name = name;
+}
+
+Person.prototype.greet = function() {
+  console.log(`Hello, my name is ${this.name}`);
+};
+
+const person = new Person("Alice");
+person.greet(); // 输出：Hello, my name is Alice
+```
+
+### 箭头函数
+箭头函数简化了函数定义的书写, 其本质上依旧是一个普通函数, 因此也是语法糖的一种.
+
+- e.g.
+```js
+// 使用箭头函数
+const add = (a, b) => a + b;
+
+// 等价的普通函数
+const add = function add(a, b) {
+  return a + b;
+}
+```
+
+### 结构赋值
+$\underline{结构赋值}$ 手动提取**对象**属性的语法糖.
+
+- 使用结构赋值:
+```js
+const person = {name:"Zhuo", gender:"male"};
+
+const {name, gender} = person;
+```
+
+- 等价的原型写法:
+```js
+const person = {name:"Zhuo", gender:"male"};
+
+const name = person.name;
+const gender = person.gender;
+```
+
+#### 赋值规则
+结构赋值时, 基于 **属性名匹配** 而非顺序. 
+因此, 对象结构的`{}`内部属性必须和 **对象的属性名** 相对应.
+
+**错误**的示例:
+```js
+const person = { name: "Alice", age: 25 };
+const { a, b } = person;
+
+console.log(a); // 输出：undefined
+console.log(b); // 输出：undefined
+```
+
+**重命名属性**的写法:
+```js
+const person = { name: "Alice", age: 25 };
+const { name: a, age: b } = person;
+
+console.log(a); // 输出：Alice
+console.log(b); // 输出：25
+```
+
+**手动赋值**: 对于结构对象中不存在的属性, 可以采取普通赋值的方式与结构赋值相结合:
+```js
+const person = { name: "Alice" };
+const { name, age = 30 } = person;
+
+console.log(name); // 输出：Alice
+console.log(age);  // 输出：30 （因为 person 中没有 age 属性，所以使用了默认值）
+```
+#### 数组的结构赋值
+上述讨论的结构赋值都是对 **对象** 的结构赋值, 对于数组同样可以结构赋值, 且赋值规则与对象相反—— **基于顺序**赋值:
+```js
+const arr = ["Alice", 25];
+const [a, b] = arr;
+
+console.log(a); // 输出：Alice
+console.log(b); // 输出：25
+```
