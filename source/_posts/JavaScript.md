@@ -2,7 +2,9 @@
 title: JavaScript
 date: 2025-01-09 14:06:30
 tags: 
-categories: 前端学习
+- 前端
+- JS
+categories: 学习笔记
 excerpt: 一种轻量级、解释型、面向对象的编程语言. 作为前端三件套之一以及TS的基础, JS语言细节十分难嚼. 本文在「料理的加护」下, 尽可能将JS处理得更加可口一些)
 math: true
 index_img: /img/料理的加护.jpg

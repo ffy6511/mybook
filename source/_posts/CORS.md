@@ -1,8 +1,10 @@
 ---
 title: CORS
 date: 2025-01-16 10:11:38
-tags:
-categories:
+tags: 
+- 前后端交互  
+- 网站开发
+categories: 学习笔记
 excerpt: 在前后端分离的项目中, 常常需要注意跨域资源共享的问题.
 index_img: /img/跨域共享.jpg
 ---

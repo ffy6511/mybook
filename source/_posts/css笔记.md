@@ -2,8 +2,10 @@
 title: css笔记
 date: 2025-01-08 18:33:32
 tags:
+- 前端
+- CSS
 index_img: /img/Aniya.png
-categories: 前端学习
+categories: 学习笔记
 excerpt: css属性好多好复杂😶‍🌫️
 ---
 > [在线编辑平台](https://jsfiddle.net/?locale=zh_CN)

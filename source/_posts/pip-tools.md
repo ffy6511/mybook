@@ -2,7 +2,9 @@
 title: pip-tools
 date: 2025-01-15 22:29:31
 tags: 
-categories: 实用技能
+- python
+- 环境配置
+categories: 通用技能
 excerpt: 常常在python的虚拟环境中碰到依赖包版本冲突的问题吗? 试试pip-tools这个工具吧!
 index_img: /img/great.jpg
 ---
