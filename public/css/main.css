@@ -2317,3 +2317,6 @@ input[type=checkbox] {
     margin-left: 1rem;
   }
 }
+#waifu {
+  z-index: 9999 !important;
+}

@@ -2,7 +2,8 @@
 title: Re0!
 date: 2025-01-18 17:05:18
 tags:
-categories: 碎碎念
+- 追番
+categories: 生活碎碎念
 excerpt: 好好看!
 hide: false
 archive: true

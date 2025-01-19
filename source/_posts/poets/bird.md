@@ -4,7 +4,6 @@ date: 2025-01-08 16:10:10
 tags: 
 - 短诗
 - 她
-- 眼眸
 categories: 随机掉落的文字碎片
 excerpt: 等一处栖居 🪶
 index_img: /img/倦鸟.png
@@ -30,9 +29,9 @@ archive: true
 <details>
 <summary> 完整三节诗</summary>
 <p style = " 
-    font-size: 1.3em;
+    font-size: 1em;
     text-align: center;
-    line-height: 2em;"
+    line-height: 1.5em;"
 >
 我盘旋的目光是漂泊不息的倦鸟 <br>
 越过人海终于落入你乌黑瞳仁中的夜<br>
@@ -51,7 +50,7 @@ archive: true
 <summary> 「灵感」Tagore's</summary>
 
 <p style = " 
-    font-size: 1.3em;
+    font-size: 1.1em;
     text-align: center;
     line-height: 2em;"
 >
