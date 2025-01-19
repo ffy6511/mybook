@@ -16,7 +16,7 @@
       <% if(params.type !== 'post') { %>
         <a href="<%= url_for(cat.path) %>" class="category-count col-2 col-md-1 col-xm-1">
           <i class="iconfont icon-articles"></i>
-          <span><%= cat.posts.length %></span>
+          <span><%= cat.posts.length %> 篇</span>
         </a>
       <% } %>
       <div class="category-collapse collapse <%= collapsed ? '' : 'show' %>" id="collapse-<%= md5(cat.name) %>"

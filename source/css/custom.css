@@ -57,7 +57,7 @@ body, .markdown-body {
   
   .timeline-year {
     position: relative;
-    margin-left: -30px;
+    margin-left: -60px;
     padding: 10px 0;
     font-weight: bold;
     border:none;
@@ -110,4 +110,25 @@ body, .markdown-body {
   }
   
 
-  
+  .category-item, 
+.category-subitem {
+  display: flex;
+  align-items: center;
+}
+
+.category-count {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 15px;
+}
+
+.category-count i,
+.category-count span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.category-count i {
+  margin-right: 5px;
+}

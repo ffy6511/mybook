@@ -1348,6 +1348,9 @@ i.iconfont {
   max-height: calc(1.4rem * 3);
 }
 @media (max-width: 767px) {
+  .index-card {
+    flex-direction: column;
+  }
   .index-info {
     padding-top: 1.25rem;
   }
