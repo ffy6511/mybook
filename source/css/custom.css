@@ -57,7 +57,7 @@ body, .markdown-body {
   
   .timeline-year {
     position: relative;
-    margin-left: -60px;
+    margin-right: auto;
     padding: 10px 0;
     font-weight: bold;
     border:none;
