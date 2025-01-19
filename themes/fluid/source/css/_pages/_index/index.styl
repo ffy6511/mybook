@@ -104,7 +104,25 @@
   max-height calc(1.4rem * 3)
 
 @media (max-width: 767px)
+  .index-img
+
+  
+  img
+    display block
+    width 90%
+    height 12rem
+    object-fit cover
+    box-shadow 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15)
+    border-radius 0.30rem
+    background-color transparent
+    transition: all 0.2s ease-in-out
+
+
   .index-card
+    flex-direction column
+
+
+  .index-card:nth-child(2n+1)
     flex-direction column
 
   .index-info
