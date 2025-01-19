@@ -1,12 +1,131 @@
 @font-face {
     font-family: "wenkai";
     src: url("/fonts/LXGWWenKaiGBScreen.ttf") format("truetype");
-
-    font-display: swap;  /* 可选：优化字体加载 */
-  }
+    font-display: swap;
+}
 
 body, .markdown-body {
     font-family: "wenkai", sans-serif;
 }
 
-
+/* Timeline styles */
+.timeline-container {
+    position: relative;
+    padding-left: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .timeline-item {
+    position: relative;
+    padding-left: 10px;
+    margin-bottom: 0px;
+  }
+  
+  .timeline-line {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--line-color);
+  }
+  
+  .timeline-dot {
+    position: absolute;
+    left: -3px;
+    top: 45%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #8e8c8c;
+    border: 0px solid white;
+    z-index: 1;
+    transition: all 0.3s ease;
+  }
+  
+  .timeline-item:hover .timeline-dot {
+    transform: scale(1.5);
+    background: var(--link-hover-color);
+  }
+  
+  .timeline-item:hover .list-group-item {
+    color: var(--link-hover-color);
+    transform: translateX(5px);
+  }
+  
+  .timeline-year {
+    position: relative;
+    margin-left: -30px;
+    padding: 10px 0;
+    font-weight: bold;
+    color: var(--post-link-color);
+    background: var(--board-color);
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  .list-group-item {
+    margin-bottom: 0px;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+  }
+  
+  .list-group-item:hover {
+    box-shadow: 0 4px 15px rgba(33,150,243,0.2);
+    border-color: var(--post-link-color);
+  }
+  
+  .list-group-item-title {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  
+  .badge.bg-primary {
+    font-weight: 400;
+    font-size: 0.8rem;
+    padding: 4px 8px;
+  }
+  
+  .text-muted {
+    color: var(--sec-text-color) !important;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  
+  @media (max-width: 768px) {
+    .timeline-container {
+      padding-left: 20px;
+    }
+    .timeline-item {
+      padding-left: 15px;
+    }
+    .timeline-dot {
+      left: -5px;
+      width: 10px;
+      height: 10px;
+    }
+  }
+  
+  /* Dark mode styles */
+  [data-user-color-scheme="dark"] .timeline-line {
+    background: var(--line-color-dark);
+  }
+  
+  [data-user-color-scheme="dark"] .timeline-dot {
+    background: var(--post-link-color-dark);
+  }
+  
+  [data-user-color-scheme="dark"] .timeline-year {
+    color: var(--post-link-color-dark);
+    background: var(--board-color-dark);
+  }
+  
+  [data-user-color-scheme="dark"] .list-group-item:hover {
+    border-color: var(--post-link-color-dark);
+    box-shadow: 0 4px 15px rgba(21,137,233,0.2);
+  }
+  
