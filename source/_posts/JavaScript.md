@@ -591,12 +591,13 @@ addEventListener(type, listener, useCapture);
   - 包括 **回调函数** 以及 实现了 **EventListener 接口的对象**;
 - `options`: 可选参数, 用于配置事件监听器的行为;
 > 可以为单个事件添加多个事件监听器.
-#### listener
 
+
+#### listener
 $\underline{回调函数}$ 简单来说, ~指的是当某个事件发生时被调用的一段代码.
 - 是一个函数, 但是只有等到特定的事件发生时才会执行.
 
-$\underline{实现了 EventListener 接口的对象}$ 
+实现了 EventListener 接口的对象:
 - **特点**: 以对象作为listener, 对象中具有名为`handleEvent()`的方法;
 - **作用**: 
   - 将事件处理封装到一个对象当中, 可以更好地组织代码;

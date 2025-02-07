@@ -227,6 +227,14 @@ export default ThemeToggle;
 }
 ```
 
+<br>
+
+如果某个CSS不需要作为变量进行统一管理, 可以直接使用 **属性选择器** 进行单独设置:
+```css
+[data-theme='dark'] .icon_example{
+  --bg-color: #141414;
+}
+``` 
 
 ## 总结与参考
 通过以上实现,我们构建了一个完整的主题切换系统。关键点包括：
