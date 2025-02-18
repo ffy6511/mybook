@@ -5,6 +5,7 @@ tags:
 categories:
 excerpt: 一起来学习makefile吧！
 ---
+# 编译
 # 基本概念
 ## 默认目标
 - `Makefile`当中的第一个目标会成为**默认目标**;
@@ -67,8 +68,198 @@ clean:
 # make clean    # 清理
 ```
 
+## 多目标
+e.g: 
+```makefile
+bigoutput littleoutput : text.g
+    generate text.g -$(subst output,,$@) > $@
+```
 
+### 解析
 
+```makefile
+bigoutput littleoutput : text.g
+    generate text.g -$(subst output,,$@) > $@
+```
+
+1. `bigoutput littleoutput` - 两个目标文件
+2. `text.g` - 依赖文件
+3. `$(subst output,,$@)` -变量展开：
+   - `$@` 是自动变量，表示当前目标名
+   - `subst` 是替换函数，格式为 `$(subst from,to,text)`
+   - 此处将目标名中的 "output" 替换为空
+
+当规则执行时：
+- 对于 `bigoutput` 目标：
+  - `$@` 展开为 `bigoutput`
+  - `$(subst output,,$@)` 结果为 `big`
+  - 最终命令变为：`generate text.g -big > bigoutput`
+
+- 对于 `littleoutput` 目标：
+  - `$@` 展开为 `littleoutput`
+  - `$(subst output,,$@)` 结果为 `little`
+  - 最终命令变为：`generate text.g -little > littleoutput`
+
+<br>
+
+因此, 上述的多目标规则**等价**于:
+```makefile
+bigoutput : text.g
+    generate text.g -big > bigoutput
+littleoutput : text.g
+    generate text.g -little > littleoutput
+```
+
+### 规则语法
+
+多目标规则（Multiple Targets）是 Makefile 中的一个重要特性：
+
+1. **基本语法**：
+   ```makefile
+   target1 target2 : prerequisites
+       commands
+   ```
+
+2. **特点**：
+   - 多个目标共享相同的依赖关系
+   - 命令会对每个目标分别执行一次
+   - 可以使用 `$@` 引用当前正在构建的目标
+
+3. **使用场景**：
+   - 生成相似但略有不同的文件
+   - 多个目标需要类似的构建过程
+   - 减少重复代码
+
+4. **示例**：
+   ```makefile
+   # 生成不同大小的图片
+   big.jpg small.jpg : original.jpg
+       convert original.jpg -resize $* > $@
+
+   # 生成不同格式的文档
+   manual.pdf manual.html : manual.txt
+       pandoc manual.txt -o $@
+   ```
+
+5. **优势**：
+   - 代码更简洁
+   - 易于维护
+   - 避免重复规则
+   - 更好的规则组织
+
+6. **注意事项**：
+   - 命令对每个目标都会执行一次
+   - 需要合理使用自动变量（如 `$@`）来区分不同目标
+   - 确保命令对所有目标都适用
+
+## 静态模式
+好的，让我从这几个角度来介绍 Makefile 中的静态模式规则。
+
+### 1. 引入背景
+
+在 Makefile 中，当我们需要将多个源文件编译成对应的目标文件时，如果按照普通的规则写法，往往需要为每个文件都写一条规则：
+
+```makefile
+foo.o : foo.c
+    $(CC) -c $(CFLAGS) foo.c -o foo.o
+
+bar.o : bar.c
+    $(CC) -c $(CFLAGS) bar.c -o bar.o
+
+test.o : test.c
+    $(CC) -c $(CFLAGS) test.c -o test.o
+```
+
+这种写法存在明显问题：
+- 规则重复，维护困难
+- 当新增源文件时需要手动添加规则
+- 代码冗长，不够优雅
+
+虽然可以使用多目标规则，但在处理源文件和目标文件的对应关系时仍然不够灵活。这就是引入静态模式规则的原因。
+
+### 2. 基本语法
+
+静态模式规则的基本语法如下：
+```makefile
+targets ...: target-pattern: prereq-pattern
+    commands
+```
+
+其中：
+- `targets`: 要生成的目标文件列表
+- `target-pattern`: 目标的模式，通常包含 `%` 通配符
+- `prereq-pattern`: 依赖的模式，通常也包含 `%` 通配符
+- `commands`: 构建命令
+
+`%` 在 target-pattern 中匹配的内容，会在 prereq-pattern 中作为相同的替换内容。
+
+### 3. 综合示例
+
+让我们通过几个逐渐复杂的例子来说明静态模式的使用：
+
+#### 基础示例：编译 C 文件
+```makefile
+objects = foo.o bar.o test.o
+
+$(objects): %.o: %.c
+    $(CC) -c $(CFLAGS) $< -o $@
+```
+
+#### 复杂示例：多种源文件处理
+```makefile
+# 定义源文件和目标文件
+cpp_sources := $(wildcard *.cpp)
+c_sources := $(wildcard *.c)
+cpp_objects := $(cpp_sources:.cpp=.o)
+c_objects := $(c_sources:.c=.o)
+all_objects := $(cpp_objects) $(c_objects)
+
+# C++ 源文件的编译规则
+$(cpp_objects): %.o: %.cpp
+    $(CXX) -c $(CXXFLAGS) $< -o $@
+
+# C 源文件的编译规则
+$(c_objects): %.o: %.c
+    $(CC) -c $(CFLAGS) $< -o $@
+
+# 生成可执行文件
+program: $(all_objects)
+    $(CXX) $^ -o $@
+```
+- `$(cpp_sources:.cpp=.o)`是一种**模式替换**, 会将`cpp_sources`中的所有`.cpp`文件替换为`.o`文件;
+  - 即`$(varname:pattern1=pattern2)` 会将`varname`中的所有`pattern1`替换为`pattern2`;
+
+#### 更复杂的示例：多目录处理
+```makefile
+# 目录结构
+SRCDIR = src
+OBJDIR = obj
+
+# 源文件和目标文件
+SOURCES = $(wildcard $(SRCDIR)/*.c)
+OBJECTS = $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
+
+# 确保目标目录存在
+$(OBJDIR):
+    mkdir -p $@
+
+# 静态模式规则
+$(OBJECTS): $(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
+    $(CC) -c $(CFLAGS) $< -o $@
+
+# 最终目标
+program: $(OBJECTS)
+    $(CC) $^ -o $@
+```
+> todo
+
+这个复杂示例展现了 Makefile 在处理现代项目时的多个高级特性。在**文件组织**方面，示例实现了跨目录的文件处理能力，通过将源文件和目标文件分别组织在不同的目录（如 `src` 和 `obj`）中，体现了项目结构的清晰性和模块化。Makefile 能够智能地在这些目录间进行文件操作，保持项目的整洁有序。
+
+在**目录管理**方面，示例引入了自动创建目标目录的机制。通过使用条件依赖（用 `|` 分隔符标识），确保在编译过程开始前目标目录已经存在。这种方式优雅地解决了目录创建的时序问题，避免了因目录不存在而导致的编译失败。特别是当多个目标文件同时需要某个目录时，条件依赖能够确保目录创建操作只执行一次，提高了构建效率。
+
+在**文件名处理**方面，示例展示了复杂的文件名转换技巧。通过巧妙运用 Make 的模式替换功能，实现了从源文件到目标文件的路径和扩展名转换。例如，将 `src/main.c` 转换为 `obj/main.o`，这种转换不仅处理了文件扩展名的变化，还同时处理了目录路径的变化。这种灵活的文件名处理机制，使得 Makefile 能够适应更复杂的项目结构和构建需求，同时保持了规则的简洁性和可维护性。
+
+---
 
 ## 基本规则
 ```makefile
@@ -180,6 +371,14 @@ objects = *.o
 # 定义时展开(除非重新赋值, 否则保持定义时的展开状态)
 objects := $(wildcard *.o)
 ```
+
+e.g:
+```makefile
+$(patsubst %.c,%.o,$(wildcard *.c))
+```
+- `patsubst`是一个函数, 用于模式替换;
+- 语法为`patsubst <pattern>,<replacement>,<text>`;
+- 此处表示利用通配符, 将所有的`.c`文件名称替换为`.o`文件.
 
 
 ### 使用单字符通配符
