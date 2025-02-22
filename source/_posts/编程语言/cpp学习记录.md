@@ -9,6 +9,33 @@ math: true
 
 编译时, 从`c`的`gcc`转变为了`g++`.
 
+# 基本语法
+在C语言中,我们主要使用`malloc()`和`free()`来进行动态内存管理。但这种方式存在一些问题:
+- 它不会调用构造函数和析构函数,返回的是void*指针需要强制类型转换;
+- 容易发生内存泄漏.
+
+为了更好地支持面向对象编程并提供更安全的内存管理机制,C++引入了`new`和`delete.
+
+new的基本语法十分直观:
+```cpp
+Type* pointer = new Type;           // 分配单个对象
+Type* pointer = new Type[size];     // 分配对象数组
+```
+
+可以在创建时进行初始化:
+```cpp
+int* p1 = new int(5);              // 初始化为5
+string* p2 = new string("hello");   // 初始化为"hello"
+```
+
+也可以根据变量进行动态的内存分配:
+```cpp
+int size;
+cin >> size;
+int* arr = new int[size];  // 根据输入分配内存
+```
+
+
 # 输入输出流
 通过包含头文件 -- `#include <iostream>` 来使用输入输出流 `cin` 和 `cout`.
 
@@ -165,7 +192,12 @@ string name = "John";
 ### stringstream
 `stringstream` 表示**双向**字符串流:
 - 需要导入头文件`#include <sstream>`;
-- `istringstream` 表示**输入**字符串流, `ostringstream` 表示**输出**字符串流.
+- `istringstream` 表示**输入**字符串流
+  - 作用: 将字符串转换成一个类似于输入流的对象;
+  - 内部维护了一个字符串和一个位置指针;
+  - 每次读取时, 位置指针向后移动, 且自动跳过空白字符.
+- `ostringstream` 表示**输出**字符串流.
+
 
 #### 字符串分词
 自动以**空白字符**(空格、制表符\t、换行符\n等)分割字符串;
@@ -612,6 +644,103 @@ string topLevelDomain = email.substr(lastDotPos + 1); // result: "com"
 ---
 
 # Group
+**选择的标准:**
+- 一般情况 $\Rightarrow$ `vector`;
+- 程序需要对元素进行**随机访问** $\Rightarrow$ `vector` or `deque`;
+- 程序需要在容器**中间插入**元素 $\Rightarrow$ `list` or `forward_list`;
+- 程序需要在容器的**首尾插入**元素 $\Rightarrow$ `deque`;
+- 容器中的元素**相对较小**但是数量较多 $\nRightarrow$ `list` nor `forward_list`.
+  - 否则链表中的指针占用的额外空间反而占比较高, 导致空间浪费.
+
+## Vector
+
+存储元素在**连续的内存空间**中, 支持**随机访问**.
+- 可以动态增长, 适合存储**未知数量**的元素;
+- 通过下标访问元素的时间复杂度为 O(1);
+- 在末尾插入和删除元素的时间复杂度为 O(1);
+- 在中间插入和删除元素的时间复杂度为 O(n);
+- **使用场景**: 需要随机访问、排序、内存连续存储的场景.
+
+**语法**:
+- 使用 `.end()`返回一个指向容器**末尾后一个位置**的迭代器:
+  ```c++
+  auto it = find(vec.begin(), vec.end(), value);  // 查找 value
+    if (it != vec.end()) {         // 如果找到了（即没有返回 end()）
+        vec.erase(it);             // 则删除找到的元素
+    }
+  ```
+- 使用 `.push_back()`在末尾插入元素, 或者使用`.emplace_back()`在末尾原位构造元素(更加高效);
+  ```c++
+  vec.push_back(10);
+  vec.emplace_back(20); //更加高效
+  ```
+  > `emplace_back`方法**直接**在容器的**内存空间中构造**对象, 相比于`push_back`而言更加**高效**.
+- `.erase()`方法删除指定位置的元素, 可以删除单个元素, 也可以删除一段区间;
+    ```c++
+     vec.erase(vec.begin() + 1);       // 删除第二个元素
+     vec.erase(vec.begin(), vec.begin() + 3); // 删除前三个元素
+     vec.clear();                      // 清空整个 vector
+    ```
+    > `vec.clear();` 将会清空整个vector.
+- `vec[i]`的形式访问, 使用`vec.at(i)`的方式可以在越界时抛出异常;
+- `.begin()`和`.end()`获取迭代器, 使用范围for循环遍历元素;
+    ```c++
+     cout << "Vector elements:" << endl;
+     for (int num : vec) {
+        cout << num << " ";
+     }
+     cout << endl;
+
+    //使用迭代器遍历
+    for (auto it = vec.begin(); it != vec.end(); ++it) {
+        cout << *it << " ";
+    }
+    cout << endl;
+    ```
+- `.size()`获取`vector`的大小, `.empty()`判断`vector`是否为空;
+  ```c++
+  cout << "Vector size: " << vec.size() << endl;
+  if (vec.empty()) {
+      cout << "Vector is empty." << endl;
+  }
+  ```
+- 使用`sort()`对`vector`进行排序, 使用`find()`查找元素;
+  ```c++
+  sort(vec.begin(), vec.end());   // 排序
+  auto it = find(vec.begin(), vec.end(), 5); // 查找 5
+  ```
+
+### Reserve
+为了避免频繁地扩展内存, 可以通过`reserve`预先分配合适的空间, 同时通过`.reszie()`调整大小;
+```cpp
+    vector<string> v2;
+    v2.reserve(1000);  // 一次性分配 1000 个元素的空间
+
+    v2.resize(v2.size() + v2.size()/2); // 调整大小为原来的 1.5 倍
+```
+
+
+`reserve`只分配空间而不创建元素,`resize`将同时分配元素(默认值):
+```cpp
+vector<string> vec;
+// reserve: 只分配空间，不创建元素
+vec.reserve(10);  
+cout << "The capacity with reserve: " << vec.capacity() << endl;
+cout << "The size with reserve: " << vec.size() << endl;    
+
+// resize: 分配空间并创建元素
+vec.resize(10);   
+cout << "The capacity with resize: " << vec.capacity() << endl;
+cout << "The size with resize: " << vec.size() << endl;   
+```
+
+**Output**:
+```shell
+The capacity with reserve: 10
+The size with reserve: 0
+The capacity with resize: 10
+The size with resize: 10
+```
 ## List
 - 在`list`容器当中, 迭代器是双向迭代器;
   - 双向迭代器不支持大小的比较, 只支持 `==`,`!=`,`++`,`--`;
@@ -674,7 +803,7 @@ int main() {
 
 
 
-### Deque
+## Deque
 `deque`即 double-ended queue, **双端队列**.
 
 支持:
@@ -798,7 +927,255 @@ while(curr != fl.end() && *curr != target) {
 }
 ```
 
+## Map
+作为Associative container(关联容器), 存储键值对( key-value pair ), 并根据键**自动排序**
+- 如果插入重复的key, 将会覆盖原有的value;
+- 通过键查找元素、插入和删除的时间复杂度均为O(log n);
+- **使用场景**: 字典、索引、统计等.
 
+**语法**:
+- 使用 `.end()`返回一个指向容器**末尾后一个位置**的迭代器, 作为一个标记, 和查找相结合判断某个元素是否存在于`map`当中;
+  ```cpp
+  auto it = ages.find("Charlie");  // 查找 "Charlie"
+    if (it != ages.end()) {         // 如果找到了（即没有返回 end()）
+        ages.erase(it);             // 则删除找到的元素
+    }
+  ```
+- 使用下标(键)直接插入,或者通过键值对插入
+  ```cpp
+  ages["Alice"] = 25;
+  ages.insert({"Bob", 30});
+  ages.emplace("Charlie", 28); // 使用 emplace 插入 (更高效)
+  ```
+  > `emplace`方法指**直接**在容器的**内存空间中构造**对象，而不是先在其他地方构造对象后再将其拷贝或移动到容器中, 相比于`insert`而言更加**高效**.
+- `.erase()`方法删除指定key的元素, 也可以通过`.find()`找到key对应的迭代器`it`, 然后`erase(it)`.
+    ```cpp
+     ages.erase("Bob");           // 删除键为 "Bob" 的元素
+    auto it = ages.find("Charlie");
+    if (it != ages.end()) {
+        ages.erase(it);         // 删除迭代器指向的元素
+    }
+    ```
+    > `ages.clear();` 将会清空整个map.
+- `map[key]`的形式访问, 使用`map.at(key)`的方式可以在key不存在时抛出异常;
+- `.find(key)`查找对应键的元素( 返回**迭代器** ), `.count(key)`返回对应键的元素个数(0 or 1)
+- `.size()`获取map的大小.
+- 迭代器的`->first`和`->second`可以分别访问键和值.
+    ```cpp
+     cout << "Map elements:" << endl;
+     for (auto mapIt = ages.begin(); mapIt != ages.end(); ++mapIt) {
+        cout << mapIt->first << ": " << mapIt->second << endl; // 访问键和值
+     }
+    ```
+
+## Iterator
+迭代器(Iterator)是一种通用的访问容器元素的方式, 类似于指针.
+
+- **标记位置**: `.begin()`和`.end()` 分别返回容器第一个元素和最后一个元素的下一个位置的迭代器;
+
+迭代器的分类:
+- 输入迭代器: 支持读取和递增操作;
+  - `istream_iterator`: 用于从输入流读取数据;
+- 输出迭代器: 支持写入和递增操作;
+  - `ostream_iterator`: 用于向输出流写入数据;
+- 前向迭代器: 具有输入、输出迭代器的**所有**功能, 并且可以多次遍历同一个序列;
+  - 比如`forwarf_list`的迭代器:`auto it = flist.begin()` or `forward_list<int>::iterator it = flist.begin()`;
+- 双向迭代器: 在前向迭代器的原有功能上, 同时支持**递减**操作;
+  - 比如双向链表`list`的迭代器.
+    ```cpp
+    #include <iostream>
+    #include <list>
+    using namespace std;
+
+    int main() {
+        list<int> myList = {10, 20, 30, 40, 50};
+
+        // 使用双向迭代器正向遍历
+        cout << "Forward traversal: ";
+        for ( list<int>::iterator it = myList.begin(); it != myList.end(); ++it) {
+            cout << *it << " ";
+        }
+        cout <<  endl;
+
+        // 使用双向迭代器逆向遍历
+        cout << "Reverse traversal: ";
+        for ( list<int>::reverse_iterator rit = myList.rbegin(); rit != myList.rend(); ++rit) {
+            cout << *rit << " ";
+        }
+        cout <<  endl;
+
+        return 0;
+        // Forward traversal: 10 20 30 40 50 
+        // Reverse traversal: 50 40 30 20 10 
+    }
+    ```
+    > 1. `reverse_iterator`用于声明逆向遍历的迭代器, 也可以使用`auto`直接声明.
+    > 2. `rbegin()`和`rend()`分别返回容器最后一个元素和第一个元素的前一个位置的逆向迭代器. 此时的`++`相当于正向遍历时的`--`操作.
+- 随机访问迭代器: 具有双向迭代器的所有功能, 同时支持**随机访问**, 如`it+n`,`it[n]`.
+  - 比如`vector`的迭代器.
+  ```cpp
+    vector<int> vec = {10, 20, 30, 40, 50};
+    cout << "Vector elements (random access): ";
+    for (int i = 0; i < vec.size(); ++i) {
+        cout << vec[i] << " "; // 使用下标随机访问
+    }
+    cout << endl;
+  ```
+
+另外, 还有一种迭代器称为插入迭代器, 比如`back_inserter`
+```cpp
+vector<int> vec = {10, 20, 30, 40, 50};
+
+//结合copy将容器的元素直接插入到另一个容器中
+vector<int> dest = {60,70};
+copy(vec.begin(), vec.end(), back_inserter(dest)); // 在 dest 末尾插入元素
+cout << "Copied vector: ";
+for (int num : dest) {
+    cout << num << " ";
+}
+cout << endl;
+// Copied vector: 60 70 10 20 30 40 50 
+```
+
+## for-each
+for-each 循环的语法：
+```cpp
+for (range_declaration : range_expression) {
+    loop_statement;
+}
+```
+- range_declaration： 声明一个变量，用于存储 range_expression 中的每个元素。这个变量的类型应该与 range_expression 中的元素类型兼容。可以使用 `auto `关键字让编译器自动推导类型;
+- range_expression： 一个表示序列的表达式，例如数组、容器（如 vector、list、map 等）或**字符串**;
+- loop_statement： 循环体，包含要对每个元素执行的语句.
+
+e.g:
+```cpp
+
+#include <iostream>
+#include <vector>
+
+int main() {
+    std::vector<int> numbers = {1, 2, 3, 4, 5};
+
+    // 使用 for-each 循环遍历 vector
+    for (int num : numbers) {
+        std::cout << num << " "; // 输出每个元素
+    }
+    std::cout << std::endl;
+
+    // 使用 auto 关键字自动推导类型
+    for (auto num : numbers) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    // 修改容器中的元素（需要使用引用）
+    for (int &num : numbers) {
+        num *= 2; // 将每个元素乘以 2
+    }
+
+    // 输出修改后的元素
+    for (auto num : numbers) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+``` 
+- `for (int &num : numbers)`：使用引用 &，可以直接修改容器中的元素.
+
+### Map的循环
+当range_expression是`map`时, 可以使用`auto`自动推导range_declaration的类型.需要注意是:
+- 用迭代器的方式访问`map`中的键值对的性质是 `it->first`与`it->second`;
+- 在`for-each`循环当中, range_declaration是一个值, 因此使用`.first`与`.second`来访问键和值.
+    ```cpp
+    #include <iostream>
+    #include <vector>
+    #include <map>
+    #include <string>
+    #include <algorithm>
+
+    using namespace std;
+
+    int main(){
+        map<string, string> m = {{"one", "1"}, {"two", "2"}, {"three", "3"}};
+        vector<string> vec;
+
+        for(auto& entry : m){
+            vec.push_back(entry.first + ":" + entry.second );
+        }
+        copy(vec.begin(), vec.end(), ostream_iterator<string>(cout, " "));
+    }
+    ```
+    **Output:**
+    ```shell
+    one:1 three:3 two:2
+    ```
+> 此处由于`map`自动按照键的字典序进行排序, 因此输出时`three`的元素在`two`前;
+
+在上述的示例中, 也可以使用下面的方式进行`vec`的输出:
+```cpp
+for(const auto& s : vec) {
+    cout << s << " ";
+}
+```
+此时`auto`会自动推导为`string`类型, 且`&`对数组的元素进行了引用, 使得输出更加高效.
+
+### Pro&Con
+`for-each`循环的优点:
+- 消除了访问数组等越界的风险;
+- 不需要事先初始化迭代器;
+
+`for-each`循环的缺点:
+- 无法获取元素的索引;
+- 只能顺序地遍历.
+
+## typedef
+我们可能经常遇到一些复杂的类型声明，特别是在使用模板、函数指针或复杂的数据结构时。这些类型名称可能会变得冗长，不仅书写起来繁琐，而且降低了代码的可读性.
+
+而typedef 就是为了解决这个问题而存在的，它允许我们为类型创建别名，使代码更加简洁和易于理解.
+```cpp
+typedef old_type new_type;
+```
+
+## Notices
+1. 直接对数组、字符串和`vector`进行随机访问时, 需要注意可能存在越界问题, 且编译器可能不会报错;
+2. 对于`vector`, 可以通过`.at() = `的方式进行安全访问, 编译器会进行边界检查. 或者通过`.push_back()` or `.emplace_back`的方式在末尾赋值. 同时注意用`.reserve()`预先分配充分的内存空间.
+3. 避免不经意地向`map`当中插入元素:
+   1. 错误的示范:
+    ```cpp
+    if(foo["bob"] == 1){...}
+    ```
+   2. 使用`.count()`方法正确检查元素是否存在:
+    ```cpp
+    if( foo.count("bob") ){...}
+    ```
+   3. 也可以使用`find()`方法检查元素是否存在:
+   ```cpp
+    auto it = m.find("four");
+
+    if(it  != m.end()){
+        cout << it->second << endl;
+    }
+    else{
+        cout << "Not found" << endl;
+    }
+   ``` 
+4. 使用`.empty()`方法来检查容器, 而非`.count() == 0`的检查. 前者使用 O(1) 的时间复杂度, 而后者使用 O(n) 的时间复杂度.
+5. `erase()` 方法会返回指向被删除元素的**下一个**元素的迭代器, 应当直接采用返回值来对迭代器进行赋值:
+    ```cpp
+    //Initialize a list
+    list<int> L;
+    list<int>::iterator li = L.begin();
+
+    // Wrong:
+    L.erase(li);    // 删除元素后，li 变成了无效迭代器
+    ++li;           // 错误, 不能对无效迭代器进行操作
+
+    // Correct:
+    li = L.erase(li);  // 删除元素后，li 被更新为指向被删除元素的下一个元素
+    ```
 
 # 指针
 - Pointers to Objects
@@ -850,8 +1227,40 @@ p = &c;  // 常量指针的值可以改变
 > to be checked.
 
 # 其他
+## Includes
+### Algorithm
+`copy(first, last, result)`:
+- `fisrt`和`last`是输入迭代器, 表示要复制的范围, 左闭右开即`last`应当指向要复制元素的下一个位置. 必须支持读取操作和递增操作;
+- `result`是输出迭代器, 指向复制目标范围的起始位置, 必须支持写入操作和递增操作
+  - e.g.
+    ```cpp
+    std::vector<int> source = {1, 2, 3, 4, 5};
+    std::vector<int> destination(5); // 确保目标容器有足够的空间
 
-- 数组之间**不可以**直接赋值, 但是字符串可以直接肤质
+    std::copy(source.begin(), source.end(), destination.begin());
+
+    for (int num : destination) {
+        std::cout << num << " "; // 输出：1 2 3 4 5
+    }
+    std::cout << std::endl;
+    ```
+- `result`可以直接输出到`cout`中.
+    ```cpp
+    vector<int> vec;
+    
+    for(int i = 0; i < 5; i++){
+        vec.push_back(i);
+    }
+
+    vec.erase(vec.begin()+2); //删除第三个元素
+    copy(vec.begin(), vec.end(), ostream_iterator<int>(cout, ","));
+    cout << endl;
+    // 0,1,3,4,
+    ```
+
+---
+
+- 数组之间**不可以**直接赋值, 但是字符串可以直接赋值
 ```cpp
 char str1[] = "Hello";
 char str2[] = "World";
