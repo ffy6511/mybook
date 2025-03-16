@@ -13,6 +13,10 @@ math: true
 | 上标 | 次方 | `x^2` | $ x^2 $ |
 | 下标 | 下标 | `x_i` | $ x_i $ |
 | 分数 | 分数 | `\frac{a}{b}` | $ \frac{a}{b} $ |
+| 与运算 | and | `\wedge` | $ \wedge $ |
+| 或运算 | or | `\vee` | $ \vee $ |
+| 非运算 | not | `\neg` | $ \neg $ |
+| 集合 | 集合 | `\{a, b, c\}` | $ \{a, b, c\} $ |
 | **希腊字母** ||||
 | alpha | α | `\alpha` | $ \alpha $ |
 | beta | β | `\beta` | $ \beta $ |

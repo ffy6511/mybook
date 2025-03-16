@@ -9,6 +9,12 @@ math: true
 
 编译时, 从`c`的`gcc`转变为了`g++`.
 
+OOP的三大特点:
+
+- 封装
+- 继承
+- 多态
+
 # 基本语法
 在C语言中,我们主要使用`malloc()`和`free()`来进行动态内存管理。但这种方式存在一些问题:
 - 它不会调用构造函数和析构函数,返回的是void*指针需要强制类型转换;
@@ -219,7 +225,9 @@ int main(){
     }
 }
 ```
-> `>>` 表示从输入流中读取数据.
+> `>>` 表示从输入流中读取数据;
+>
+> 注意字符串流也是一种类型, 作用的对象是字符串.
 
 Output:
 ```shell
@@ -283,6 +291,7 @@ Name: Alice, Age: 25
 <br>
 
 `.str("")`方法可以**清空**字符串流:
+
 ```cpp
 #include <sstream>
 #include <string>
@@ -371,7 +380,8 @@ int main() {
 > 如果输入`8 \n`, 则`getchar()`读取空格, 文本为空.
 
 ### Alter String
-**outline** 常用的字符串方法(成员函数):
+**outline** : 常用的字符串方法(成员函数):
+
 ```cpp
 insert(size_t pos, const string& s);
 erase (size_t pos = 0, size_tlen = npos);
@@ -472,7 +482,7 @@ int main() {
 
 #### 其他方法
 
-- `find(string, int pos)` 寻找指定的字符串位置
+- `find(string, int pos)` 从指定的位置开始寻找字符串位置
 ```cpp
 string str = "Hello World Hello";
 // 从位置0开始查找"Hello"
@@ -611,6 +621,7 @@ str.erase(5, 6);  // 结果: "Hello"
 1. 所有位置索引都是从0开始计数
 2. 如果指定的长度超过字符串实际长度，会自动调整到实际可用长度
 3. 使用这些函数时要注意检查参数的有效性，避免越界访问
+4. `.assign(str, pos, len)`: 相比于直接赋值, `assign`还提供了精确控制赋值的方法, 也就是指定内容字符串的起始位置和长度.
 
 ---
 ### Substr
@@ -639,11 +650,39 @@ string domain =  email.substr(atPos + 1); // result: "example.com"
 int lastDotPos = email.rfind('.');
 string topLevelDomain = email.substr(lastDotPos + 1); // result: "com"
 ```
-- `rfind()`方法: 会从字符串的**末尾向前**搜索，从而返回要查找的字符或子字符串最后一次出现的位置。如果没有找到，则返回 string::npos。
+- `rfind()`方法: 会从字符串的**末尾向前**搜索，从而返回要查找的字符或子字符串此时第一次出现的位置。如果没有找到，则返回 string::npos.
 
 ---
 
+# Function
+
+## Default arguments
+
+要点:
+
+- 默认值必须在函数原型中从右到左地给出, 否则在调用的时候无法分辨;
+
+- 默认值只能出现在函数原型 或者 将声明和定义放在一起, 下面的情况会报错:
+
+  ```cpp
+  void f(int i, int j = 10);
+  int main()
+  {
+      ...
+  }
+  void f(int i, int j = 10){
+      ...
+  }
+  ```
+
+
+
+
+
+
+
 # Group
+
 **选择的标准:**
 - 一般情况 $\Rightarrow$ `vector`;
 - 程序需要对元素进行**随机访问** $\Rightarrow$ `vector` or `deque`;
@@ -651,6 +690,20 @@ string topLevelDomain = email.substr(lastDotPos + 1); // result: "com"
 - 程序需要在容器的**首尾插入**元素 $\Rightarrow$ `deque`;
 - 容器中的元素**相对较小**但是数量较多 $\nRightarrow$ `list` nor `forward_list`.
   - 否则链表中的指针占用的额外空间反而占比较高, 导致空间浪费.
+
+## Set
+
+**集合**: 用于存储一组不允许重复的元素, 且会自动排序.
+
+可以使用的方法包括:
+
+1. `.insert( )`: 插入元素;
+
+2. `.erase()`: 删除元素. 如果输入是元素值, 那么返回1/0表示是否成功删除; 如果输入是迭代器, 那么返回的是**下一个元素的迭代器**.
+
+3. `.find( )`: 寻找元素, 如果找到 返回对应的 **迭代器**. 否则返回 `.end( )`;
+
+   
 
 ## Vector
 
@@ -676,12 +729,15 @@ string topLevelDomain = email.substr(lastDotPos + 1); // result: "com"
   ```
   > `emplace_back`方法**直接**在容器的**内存空间中构造**对象, 相比于`push_back`而言更加**高效**.
 - `.erase()`方法删除指定位置的元素, 可以删除单个元素, 也可以删除一段区间;
+  
     ```c++
      vec.erase(vec.begin() + 1);       // 删除第二个元素
      vec.erase(vec.begin(), vec.begin() + 3); // 删除前三个元素
      vec.clear();                      // 清空整个 vector
     ```
     > `vec.clear();` 将会清空整个vector.
+    >
+    > 和`insert`需要的参数一样, 都需要**迭代器**而非索引来定位.
 - `vec[i]`的形式访问, 使用`vec.at(i)`的方式可以在越界时抛出异常;
 - `.begin()`和`.end()`获取迭代器, 使用范围for循环遍历元素;
     ```c++
@@ -690,7 +746,7 @@ string topLevelDomain = email.substr(lastDotPos + 1); // result: "com"
         cout << num << " ";
      }
      cout << endl;
-
+    
     //使用迭代器遍历
     for (auto it = vec.begin(); it != vec.end(); ++it) {
         cout << *it << " ";
@@ -709,18 +765,20 @@ string topLevelDomain = email.substr(lastDotPos + 1); // result: "com"
   sort(vec.begin(), vec.end());   // 排序
   auto it = find(vec.begin(), vec.end(), 5); // 查找 5
   ```
+  
+- `insert` 插入的位置是指定的迭代器位置之前一个;
 
 ### Reserve
 为了避免频繁地扩展内存, 可以通过`reserve`预先分配合适的空间, 同时通过`.reszie()`调整大小;
 ```cpp
-    vector<string> v2;
-    v2.reserve(1000);  // 一次性分配 1000 个元素的空间
+vector<string> v2;
+v2.reserve(1000);  // 一次性分配 1000 个元素的空间
 
-    v2.resize(v2.size() + v2.size()/2); // 调整大小为原来的 1.5 倍
+v2.resize(v2.size() + v2.size()/2); // 调整大小为原来的 1.5 倍
 ```
 
-
 `reserve`只分配空间而不创建元素,`resize`将同时分配元素(默认值):
+
 ```cpp
 vector<string> vec;
 // reserve: 只分配空间，不创建元素
@@ -741,10 +799,96 @@ The size with reserve: 0
 The capacity with resize: 10
 The size with resize: 10
 ```
+> [!important]
+>
+> `.push_back()`的实际作用是在容器索引的`size`处插入元素.
+>
+>  而`reserve`不会影响容器的`size`,  初始化和`resize`会影响并且填充默认值:
+
+**e.g.  验证:**
+
+```cpp
+int main() {
+    vector<int> vec(10);
+    
+    // 打印初始状态
+    cout << "初始状态：\n";
+    cout << "size: " << vec.size() << ", capacity: " << vec.capacity() << "\n\n";
+    
+    // 预留5个空间
+    vec.reserve(15);
+    cout << "reserve(15) 后：\n";
+    cout << "size: " << vec.size() << ", capacity: " << vec.capacity() << "\n\n";
+    
+    vec[20] =20;
+
+    // 添加元素并观察
+    cout << "添加元素过程：\n";
+    for(int i = 1; i <= 6; i++) {
+        vec.push_back(i);
+        cout << "添加 " << i << " 后 - ";
+        cout << "size: " << vec.size() 
+             << ", capacity: " << vec.capacity()
+             << ", 元素: ";
+        for(int x : vec) cout << x << " ";
+        cout << "\n";
+    }
+    
+    return 0;
+}
+
+```
+
+**Output:**
+
+```shell
+初始状态：
+size: 10, capacity: 10
+
+reserve(15) 后：
+size: 10, capacity: 15
+
+添加元素过程：
+添加 1 后 - size: 11, capacity: 15, 元素: 0 0 0 0 0 0 0 0 0 0 1 
+添加 2 后 - size: 12, capacity: 15, 元素: 0 0 0 0 0 0 0 0 0 0 1 2 
+添加 3 后 - size: 13, capacity: 15, 元素: 0 0 0 0 0 0 0 0 0 0 1 2 3 
+添加 4 后 - size: 14, capacity: 15, 元素: 0 0 0 0 0 0 0 0 0 0 1 2 3 4 
+添加 5 后 - size: 15, capacity: 15, 元素: 0 0 0 0 0 0 0 0 0 0 1 2 3 4 5 
+添加 6 后 - size: 16, capacity: 30, 元素: 0 0 0 0 0 0 0 0 0 0 1 2 3 4 5 6 
+```
+
+1. 此处的 `vector<int> vec(10);`初始化了10个默认值的`int`类型的元素;
+2. `vec[20] = 20;`没有进行越界与否的检查, 实际上存在越界, 但是不会报错, 也不会有实际的作用;
+   1. 如果换成`vec.at(20) = 20`将会在编译时报错;
+3. 可以发现, `reserve`的作用就是避免了多次自动扩容.
+
+> `reserve`的实质: 如果预留的容量大于当前的实际容量, 将自动分配一个指定容量的内存, 将原有的元素**copy**到新的内存空间, 并更新容器的指针, 然后释放原来的内存空间.
+
+
+
+### Resize
+
+用法的枚举:
+
+1. `resize(n)`: 将vector的大小调整为n, 如果大于当前值, 则在末尾添加具有默认值的新元素;
+
+2. `resize(n, val)`: 同样调整大小, 但是指定了默认值为新的 `val`;
+
+3. 对于二维向量的内存分配也是类似的:
+
+   ```cpp
+   	vector<vector<int>> m;  //二维码向量;
+     ...
+     m.resize(r,vector<int>(c,0)); //初始化为一个r行c列且初始值为0的矩阵.
+   ```
+
+   
+
 ## List
+
 - 在`list`容器当中, 迭代器是双向迭代器;
   - 双向迭代器不支持大小的比较, 只支持 `==`,`!=`,`++`,`--`;
-因此, 注意实际的使用:
+  因此, 注意实际的使用:
 ```cpp
 list<int> lst1;
 list<int>::iterator iter1 = lst1.begin();
@@ -799,7 +943,12 @@ int main() {
 
 **分析:**
 - `while(p != s.end() && *p <str)` 每次输入`str`时, 令迭代器从`list`的开头开始, 进行字典序的比较;
-- 找到插入的位置, 利用`insert()`方法插入.
+
+> [!important]
+>
+> 找到插入的位置, 利用`insert()`方法插入到给出迭代器的**前面**!.
+
+
 
 
 
@@ -830,7 +979,6 @@ dq[0];              // 随机访问
 dq.at(1);           // 带边界检查的访问
 dq.front();         // 访问第一个元素
 dq.back();          // 访问最后一个元素
-
 ```
 
 **示例:**
@@ -848,7 +996,7 @@ int main() {
     dq.push_back(4);
     dq.push_front(8);
     
-    // dq ：{0, 1, 3, 4}
+    // dq ：{8, 1, 3, 4}
     
     // 使用随机访问
     for(size_t i = 0; i < dq.size(); ++i) {
@@ -861,13 +1009,13 @@ int main() {
 
 ### Forward_list
 `forward_list`即 单项链表.
+
 - 只能向前遍历, 即对应的迭代器不支持`--`而支持`++`.
 - 同时不支持下标访问以及随机访问.
-- 单项链表的设计, 使得内部的每个节点只需要一个指针来指向下一个节点, 从而比`list`双向链表更加节省内存.
-
-
+- 单项链表的设计, 使得内部的每个节点只需要**一个**指针来指向下一个节点, 从而比`list`双向链表更加**节省内存.**
 
 **语法**:
+
 ```cpp
 #include <forward_list>
 forward_list<int> fl;
@@ -889,6 +1037,7 @@ fl.begin();               // 返回第一个元素的迭代器
 ```
 
 **示例**:
+
 ```cpp
 #include <forward_list>
 #include <iostream>
@@ -949,8 +1098,10 @@ while(curr != fl.end() && *curr != target) {
   ```
   > `emplace`方法指**直接**在容器的**内存空间中构造**对象，而不是先在其他地方构造对象后再将其拷贝或移动到容器中, 相比于`insert`而言更加**高效**.
 - `.erase()`方法删除指定key的元素, 也可以通过`.find()`找到key对应的迭代器`it`, 然后`erase(it)`.
+  
     ```cpp
-     ages.erase("Bob");           // 删除键为 "Bob" 的元素
+    ages.erase("Bob");           // 删除键为 "Bob" 的元素
+    
     auto it = ages.find("Charlie");
     if (it != ages.end()) {
         ages.erase(it);         // 删除迭代器指向的元素
@@ -986,24 +1137,24 @@ while(curr != fl.end() && *curr != target) {
     #include <iostream>
     #include <list>
     using namespace std;
-
+    
     int main() {
         list<int> myList = {10, 20, 30, 40, 50};
-
+    
         // 使用双向迭代器正向遍历
         cout << "Forward traversal: ";
         for ( list<int>::iterator it = myList.begin(); it != myList.end(); ++it) {
             cout << *it << " ";
         }
         cout <<  endl;
-
+    
         // 使用双向迭代器逆向遍历
         cout << "Reverse traversal: ";
         for ( list<int>::reverse_iterator rit = myList.rbegin(); rit != myList.rend(); ++rit) {
             cout << *rit << " ";
         }
         cout <<  endl;
-
+    
         return 0;
         // Forward traversal: 10 20 30 40 50 
         // Reverse traversal: 50 40 30 20 10 
@@ -1022,7 +1173,7 @@ while(curr != fl.end() && *curr != target) {
     cout << endl;
   ```
 
-另外, 还有一种迭代器称为插入迭代器, 比如`back_inserter`
+另外, 还有一种迭代器称为**插入迭代器**, 比如`back_inserter`
 ```cpp
 vector<int> vec = {10, 20, 30, 40, 50};
 
@@ -1082,12 +1233,12 @@ int main() {
 
     return 0;
 }
-``` 
+```
 - `for (int &num : numbers)`：使用引用 &，可以直接修改容器中的元素.
 
 ### Map的循环
 当range_expression是`map`时, 可以使用`auto`自动推导range_declaration的类型.需要注意是:
-- 用迭代器的方式访问`map`中的键值对的性质是 `it->first`与`it->second`;
+- 用迭代器的方式访问`map`中的键值对的形式是 `it->first`与`it->second`;
 - 在`for-each`循环当中, range_declaration是一个值, 因此使用`.first`与`.second`来访问键和值.
     ```cpp
     #include <iostream>
@@ -1095,13 +1246,13 @@ int main() {
     #include <map>
     #include <string>
     #include <algorithm>
-
+    
     using namespace std;
-
+    
     int main(){
         map<string, string> m = {{"one", "1"}, {"two", "2"}, {"three", "3"}};
         vector<string> vec;
-
+    
         for(auto& entry : m){
             vec.push_back(entry.first + ":" + entry.second );
         }
@@ -1146,6 +1297,7 @@ typedef old_type new_type;
    1. 错误的示范:
     ```cpp
     if(foo["bob"] == 1){...}
+    // 设置默认的零值
     ```
    2. 使用`.count()`方法正确检查元素是否存在:
     ```cpp
@@ -1154,25 +1306,26 @@ typedef old_type new_type;
    3. 也可以使用`find()`方法检查元素是否存在:
    ```cpp
     auto it = m.find("four");
-
+   
     if(it  != m.end()){
         cout << it->second << endl;
     }
     else{
         cout << "Not found" << endl;
     }
-   ``` 
-4. 使用`.empty()`方法来检查容器, 而非`.count() == 0`的检查. 前者使用 O(1) 的时间复杂度, 而后者使用 O(n) 的时间复杂度.
-5. `erase()` 方法会返回指向被删除元素的**下一个**元素的迭代器, 应当直接采用返回值来对迭代器进行赋值:
+   ```
+4. 使用`.empty()`方法来检查容器**整体是否为空**, 而非`.count() == 0`的检查. 前者使用 O(1) 的时间复杂度, 而后者使用 O(n) 的时间复杂度.
+5. `erase()` 方法会返回**指向**被删除元素的**下一个**元素的迭代器, 应当直接采用返回值来对迭代器进行赋值:
+   
     ```cpp
     //Initialize a list
     list<int> L;
     list<int>::iterator li = L.begin();
-
+    
     // Wrong:
     L.erase(li);    // 删除元素后，li 变成了无效迭代器
     ++li;           // 错误, 不能对无效迭代器进行操作
-
+    
     // Correct:
     li = L.erase(li);  // 删除元素后，li 被更新为指向被删除元素的下一个元素
     ```
@@ -1207,7 +1360,7 @@ p->length();
 - 指针常量 `char const * p`
   - 指针指向的值无法改变;
   - 但是可以改变指针的值(指向的对象).
-如果需要同时保证地址和值都无法改变, 则需要使用`const char * const p`.
+  如果需要同时保证地址和值都无法改变, 则需要使用`const char * const p`.
 
 e.g:
 ```cpp
@@ -1226,8 +1379,816 @@ p = &c;  // 常量指针的值可以改变
 ```
 > to be checked.
 
+
+
+
+
+如果`sp`是指向字符串的指针, 那么这两种的写法是等价的, 注意`.`的优先级高于`*`, 因此括号不可忽略.
+
+```cpp
+sp->length();
+(*sp).length();
+```
+
+
+
+# Class
+
+### `::`
+
+`::` resolver: 作用域解析运算符
+
+- 作用: 
+
+  - 访问全局的作用域
+    当局部变量和全局变量同名时, 可以使用 `::` 来访问全局变量
+
+    ```cpp
+    int value = 10; // 全局变量
+    
+    void function() {
+        int value = 20; // 局部变量
+        cout << value;    // 输出 20（局部变量）
+        cout << ::value;  // 输出 10（全局变量）
+    }
+    ```
+
+  - 访问命名空间中的成员
+
+    ```cpp
+    namespace Math {
+        const double PI = 3.14159;
+    }
+    
+    double circumference = 2 * Math::PI * radius; // 使用命名空间中的常量
+    ```
+
+- 语法:
+
+  - `<class_name> :: <function_name>`
+  - `::<function_name>`  全局作用域
+
+
+
+e.g. 
+
+```cpp
+void S::f() {
+    ::f();  // Would be recursive otherwise!
+    ::a++;  // Select the global a
+    a--;    // The a at class scope
+}
+```
+
+> `S::f()`: 定义了属于类S的成员函数f;
+>
+> `::f()`:表示调用全局作用域中的函数 `f()`, 默认为递归调用当前的成员函数;
+>
+> `::a++`表示将全局作用域的 `a` 自增, `a--`则访问并递减类作用域中的成员变量 `a`.
+
+
+
+### `this`
+
+`this`指针是成员函数的隐藏参数. 指向**当前对象的实例**.
+
+```cpp
+void Point::move(int dx, int dy);
+//等价于
+void Point::move(Point *this, int dx, int dy);
+```
+
+当调用成员函数时, 对象的地址会自动作为 `this`参数传递.
+
+
+
+在一个成员函数内部调用同一个类的其他成员函数时, 无需指定显式指定 `this`:
+
+e.g
+
+```cpp
+class Point {
+private:
+    int x, y;
+    
+public:
+    // 移动点的位置
+    void move(int dx, int dy) {
+        x += dx;
+        y += dy;
+    }
+    
+    // 打印点的坐标
+    void print() {
+        std::cout << "Point at (" << x << ", " << y << ")" << std::endl;
+    }
+    
+    // 组合以上两个功能的函数
+    void move_and_print(int dx, int dy) {
+        move(dx, dy);  // 等同于 this->move(dx, dy)
+        print();       // 等同于 this->print()
+    }
+};
+```
+
+> 但是也可以显式指定 `this->move`, 这可以明确调用的是成员函数, 增强可读性, 便于IDE显示该类可访问的成员函数.
+
+
+
+### 封装特性
+
+在OOP中, Object = Attributes + Services, 即数据和操作被**封装**在一起, 构成一个完整的对象.
+
+
+
+### 声明与定义
+
+我们应当在头文件中声明对象的成员及其 `public`,`private`和 `protected`等属性, 并且在 `cpp`文件中给出具体的定义:
+
+> 最好为每个类都建立如此对应的头文件和源文件 `cpp`.
+
+e.g. 
+
+```cpp
+// Student.h - 类的声明
+#ifndef STUDENT_H
+#define STUDENT_H
+
+#include <string>
+using namespace std;  // 在头文件中使用
+
+class Student {
+private:
+    // 数据成员
+    string name;     
+    int id;
+    float gpa;
+    
+public:
+    // 构造函数原型
+    Student(const string& name, int id);
+    
+    // 成员函数原型
+    void setName(const string& newName);
+    string getName() const;
+    void calculateGPA();
+    bool isEligibleForScholarship() const;
+};
+
+#endif // STUDENT_H
+
+```
+
+```cpp
+// Student.cpp - 成员函数的定义
+#include "Student.h"
+using namespace std;  // 在源文件中使用
+
+// 构造函数实现
+Student::Student(const string& name, int id) {
+    this->name = name;
+    this->id = id;
+    this->gpa = 0.0;
+}
+
+// 成员函数实现
+void Student::setName(const string& newName) {
+    name = newName;
+}
+
+string Student::getName() const {
+    return name;
+}
+
+void Student::calculateGPA() {
+    // 实现GPA计算逻辑
+    // ...
+}
+
+bool Student::isEligibleForScholarship() const {
+    return gpa >= 3.5;
+}
+```
+
+> ` Student::getName() `指的就是类 `Student`中的成员函数 `getName()`.
+
+
+
+具体来说, `.h`头文件当中应该有:
+
+- 外部变量的声明
+  e.g. `extern int globalCounter;  // 仅声明，不定义`
+
+- 函数原型
+  e.g. `int calculateSum(int a, int b);  // 函数声明，不包含实现`
+
+- 类/结构体的声明
+  e.g.
+
+  ```cpp
+  class Student;  // 前向声明
+  
+  // 或完整类声明（不含成员函数定义）
+  class Rectangle {
+  private:
+      double width;
+      double height;
+  public:
+      Rectangle(double w, double h);
+      double getArea() const;
+  };
+  ```
+
+
+
+回顾 `#include`: 将被引用的文件插入 `.cpp` 文件当中
+
+- `#include "xx.h"`: 首先在当前目录下寻找;
+
+- `#include <xx.h>`: 直接在指定的目录中寻找
+
+  > 等价于 `#include <xx>`.
+
+
+
+为了避免在多个 `.cpp` 文件中重复引用相同的头文件, 可以通过 `#ifndef`等标记来判断是否需要引用当前的头文件:
+
+```cpp
+#ifndef HEADER_FLAG
+#define HEADER_FLAG
+
+#endif 
+```
+
+> `HEADER_FLAG`一般使用完全大写来方便标识, 但是也可以大小写混合.
+
+e.g. 
+
+```cpp
+// 文件: vector.h
+#ifndef VECTOR_H
+#define VECTOR_H
+// ...
+#endif // VECTOR_H
+```
+
+## 生命周期管理
+
+当对象被创建时，通常需要进行一些初始化工作. 而当对象不再使用时，则需要进行相应的清理工作.
+
+为了确保这些工作不被遗忘, `cpp`的类具有构造函数和析构函数, 分别作用于对象的创建和消除过程.
+
+### 构造函数
+
+构造函数是一种特殊的成员函数，其名称与类名相同，没有返回类型（甚至不是void）。当创建类的对象时，构造函数会自动被调用.
+
+- 语法: 
+
+```cpp
+class ClassName {
+public:
+    // 默认构造函数
+    ClassName();
+    
+    // 带参数的构造函数
+    ClassName(参数列表);
+    
+    // 拷贝构造函数
+    ClassName(const ClassName& other);
+    
+};
+```
+
+> 1. **默认构造函数**：不带参数或所有参数都有默认值;
+> 2. **带参数的构造函数**：接受一个或多个参数;
+> 3. **拷贝构造函数**：从同类型的另一个对象创建新对象.
+
+
+
+- 构造函数初始化列表
+
+  ```cpp
+  Point::Point(int xx, int yy) :x(xx), y(yy) {
+    ...
+  }
+  ```
+
+  > 构造函数时, 传递参数并直接赋值给内部的成员变量 `x` , `y`.
+
+
+
+- 结构体中的构造函数:
+
+  ```cpp
+  struct Y { 
+      float f;     // 浮点型成员变量
+      int i;       // 整型成员变量
+      Y(int a);    // 声明了一个接受int参数的构造函数
+  };
+  ```
+
+  > 1. 此处只是声明了构造函数需要 `int a`作为参数, 但是没有给出具体的实现;
+  > 2. 声明结构体对象(数组)  e.g. `Y y1[] = { Y(1), Y(2), Y(3) };`
+
+
+
+### 默认构造
+
+`auto` default constructor: (自动) 默认构造函数. **当且仅当**不存在任何构造函数时, 程序会自动生成默认构造函数, 不作任何的操作.
+
+`默认构造函数`： 在没有参数的情况下可以调用的构造函数， 称为默认构造函数. 其来源除了上述的程序构造以外, 还包括:
+
+1. 显示定义的无参构造函数;
+2. 定义的所有参数都具有默认值的构造函数.
+
+
+
+- 对于成员变量: 不进行初始化;
+
+### 析构函数
+
+析构函数也是一种特殊的成员函数，其名称是类名前加上波浪号 `~`. 当对象超出作用域或被显式删除时，析构函数会自动被调用.
+
+```cpp
+class ClassName {
+public:
+    ~ClassName();
+};
+```
+
+- 类似于栈, 优先创建的后析构.
+
+
+
+
+
+运用的示例:
+
+```cpp
+#include <iostream>
+#include <cstring>
+
+class MyString {
+private:
+    char* data;
+
+public:
+    // 默认构造函数
+    MyString() : data(nullptr) {
+        std::cout << "默认构造函数调用" << std::endl;
+    }
+
+    // 带参数的构造函数
+    MyString(const char* str) {
+        if (str) {
+            data = new char[strlen(str) + 1];
+            strcpy(data, str);
+        } else {
+            data = nullptr;
+        }
+        std::cout << "参数构造函数调用" << std::endl;
+    }
+
+    // 拷贝构造函数
+    MyString(const MyString& other) {
+        if (other.data) {
+            data = new char[strlen(other.data) + 1];
+            strcpy(data, other.data);
+        } else {
+            data = nullptr;
+        }
+        std::cout << "拷贝构造函数调用" << std::endl;
+    }
+
+    // 析构函数
+    ~MyString() {
+        delete[] data;
+        std::cout << "析构函数调用" << std::endl;
+    }
+
+    // 打印字符串
+    void print() const {
+        std::cout << (data ? data : "空字符串") << std::endl;
+    }
+};
+
+int main() {
+    // 测试各种构造函数
+    MyString s1;                  // 默认构造函数
+    MyString s2("Hello");         // 带参数的构造函数
+    MyString s3 = s2;             // 拷贝构造函数
+    
+    s1.print();
+    s2.print();
+    s3.print();
+    
+    return 0;  // 所有对象在这里被销毁，调用析构函数
+}
+```
+
+
+
+本地对象: 
+
+`Field`(字段)指的是在类中定义的变量(成员变量):
+
+- 可以直接被类中的所有方法访问;
+- 生命周期**和类的对象保持一致;**
+
+其他类型数据的生命周期:
+
+- **参数**: 函数执行期间;
+- **局部变量**: 声明的代码块内部.
+
+---
+
+全局对象:
+
+
+
+
+
+> [!NOTE]
+>
+> 如果在类或对象的方法内部定义了一个和成员变量同名的变量, 那么将默认访问这个变量, 只有用 `this->xxx`才能显式访问成员变量. e.g. `int MyClass::count `.
+>
+> ```cpp
+> class MyClass {
+> public:
+>     int value = 10; // 字段
+> 
+>     void printValue() {
+>         int value = 20; // 局部变量
+>         std::cout << "Local value: " << value << std::endl; // 输出局部变量
+>         std::cout << "Field value: " << this->value << std::endl;//使用this指针访问字段
+>     }
+> };
+> ```
+
+
+
+## Access Control
+
+`class`的默认为 `private`, 而 `struct`的默认权限是 `public`.
+
+访问限制符:
+
+### `friend`
+
+在 `class`内部声明友元, 可以使得对应的函数访问自身的成员变量(包括私有和受保护, 也即是所有的变量).
+
+```cpp
+struct X {
+private:
+    int i;
+public:
+    void initialize();
+    friend void g(X*, int i);
+    friend void Y::y();
+}
+```
+
+
+
+> [!NOTE]
+>
+> **友元关系不具有传递性 !**
+
+
+
+### `protected`
+
+该声明内的成员可以被以下的范围访问:
+
+1. 该类自身的成员函数;
+2. **该类的派生类的成员函数;**
+
+e.g.
+
+```cpp
+class Base {
+protected:
+    int protectedVar;
+public:
+    Base(int val) : protectedVar(val) {}
+};
+
+class Derived : public Base {
+public:
+    Derived(int val) : Base(val) {}
+    void accessProtectedVar() {
+        protectedVar = 10; // 派生类可以访问 protectedVar
+    }
+    int getProtectedVar(){
+        return protectedVar;
+    }
+};
+```
+
+> 此处的 `base`就是一个基类, `class Derived : public Base`表明 Derived 是 base的一个派生类.
+>
+> 因此,  派生类可以通过自己的成员函数, 访问基类的 `protected`内的成员变量.
+
+
+
+
+
+
+
+## Static
+
+对于本地变量和全局变量的作用不同, 前者是生命周期, 后者是访问空间.
+
+静态的对象的生命周期是全局, 但是不会跟全局变量一样(一开始就创建), 而是在第一次调用的时候才构造, 且只构造一次.
+
+
+
+- `静态成员变量`由所有的实例**共享**, 初始化的时候不能再添加 `static`标签(否则无法被外文件访问), 必须在类的外部进行初始化, 且需要声明所属于的类;
+
+  > 但是也可以被普通的成员函数所访问.
+
+- `静态成员函数`属于类本身, 因此可以通过类名直接调用, 但是只能访问类的静态成员变量, 因为不存在属于实例的`this`指针. 静态成员函数可以在**类的内部**就定义, 如果在类的外部定义, 也不需要额外的`static`标签;
+
+  ```cpp
+  class MyClass {
+  public:
+      static int count; // 静态成员变量
+      int id;
+  
+      MyClass(int i) : id(i) {
+          count++; // 每次创建对象，count加1
+      }
+  
+      ~MyClass() {
+          count--;
+      }
+  
+      static int getCount() { // 静态成员函数
+          return count;
+      }
+  };
+  
+  int MyClass::count = 0; // 静态成员变量的初始化
+  
+  int main() {
+      std::cout << "Count: " << MyClass::getCount() << std::endl; // 通过类名调用静态成员函数
+      MyClass obj1(1);
+      MyClass obj2(2);
+  
+      std::cout << "Count: " << MyClass::getCount() << std::endl; // 通过类名调用静态成员函数
+  
+      return 0;
+  }
+  ```
+
+  **Output:**
+
+  ```cpp
+  Count: 0
+  Count: 2
+  ```
+
+
+
+- 函数内部的静态变量只会在调用的时候**初始化一次**, 直到程序结束.
+  e.g. 计数函数的调用次数:
+
+  ```cpp
+  void f(){
+    static int num_calls = 0;
+    ...
+    num_calls += 1;
+  }
+  ```
+
+- `extern`关键字用于声明变量或函数在其他文件中定义. 告诉编译器从而允许跨文件的访问.
+
+  > 但是这种跨文件访问只能作用于**非静态**的全局变量, i.e. 全局变量加上`static`声明之后, 将其作用域限制在了当前文件的内部.
+
+- 函数内部的静态对象, 其构造函数只会在定义的时候调用一次. 并且析构函数当退出程序时调用. 即使采取条件构造, 也只会在第一次条件满足的时候构造.
+
+
+
+- 静态成员的使用:
+
+  - 通过类名: `<class_name>::<static member`
+
+  - 通过实例名: `<ob variable>.<static member>`
+
+    > 让人误以为是类的对象变量, 不建议这样使用.
+
+
+
+
+
+## Reference
+
+引用（Reference）是一个非常重要的特性。它的引入是为了解决一些特定场景下的问题：
+
+- **避免不必要的拷贝**：在某些情况下，传递大型对象或结构体给函数时，如果直接传递拷贝会导致性能下降。引用允许我们传递对象的别名，而不需要拷贝整个对象。
+- **简化代码**：引用可以使代码更简洁，特别是在函数返回值和参数传递时。例如，通过引用返回一个对象可以避免构造临时对象。
+- **指针的安全替代**：引用提供了指针的功能，但避免了指针容易导致的错误，如空指针解引用或野指针。
+
+
+
+**基本语法**: 
+
+引用是一个变量的别名，它在**声明时必须被初始化**，并且一旦初始化后就**<u>不能再指向其他</u>**对象.
+
+```cpp
+int a = 10;
+int& ref = a;  // ref 是 a 的引用
+```
+
+- `int&` 表示引用类型，`ref` 是 `a` 的引用。
+- 引用必须在声明时初始化，并且不能重新引用到另一个对象。
+- 无法对引用进行引用;
+- 不允许引用的数组
+
+
+
+让我们通过一个简单的例子来展示引用的用法：
+
+```cpp
+#include <iostream>
+
+int main() {
+    int a = 10;
+    int& ref = a;  // ref 是 a 的引用
+
+    std::cout << "Original value of a: " << a << std::endl;
+    std::cout << "Value of ref: " << ref << std::endl;
+
+    ref = 20;  // 修改引用会影响原变量
+
+    std::cout << "After modifying ref, value of a: " << a << std::endl;
+    std::cout << "Value of ref: " << ref << std::endl;
+
+    return 0;
+}
+```
+
+在这个例子中：
+
+- `ref` 是 `a` 的引用，修改 `ref` 的值会影响 `a` 的值。
+- 通过引用，我们可以访问和修改原始变量 `a` 的值，而不需要直接操作 `a`。
+
+
+
+引用可以作为函数的形参, 此时函数内部的形参作为实参的引用可以改变实参的值.
+
+引用的绑定必须是一个具有明确地址的左值 ,而不能是临时产生的右值:
+
+```cpp
+void func(int &);
+func (i * 3); // Warning or error!
+```
+
+
+
+#### 指针与引用
+
+- 限制:
+
+  - 无法获得指针的引用;
+
+    ```cpp
+    int &*p;// illegal
+    ```
+
+  - 但是可以获得**指向引用的指针**
+
+    ```cpp
+    void f(int *&p);
+    ```
+
+
+
+#### 右值引用
+
+左值是指具有明确地址的变量或者引用, 右值是计算过程中的中间结果或者字面量 (e.g.`10`).等不可寻址的值;
+
+> 涉及到计算的基本都是右值, 但是这四种的计算结果依旧是左值: `*`,`.`,`[]`和 `->`.
+
+右值一般在计算结束后就消失了, 如果我们希望延长其生命周期, 就可以使用 **右值引用**.
+
+- **格式**: `<tyep> && <ref_name> = <right_value>`
+
+  ```cpp
+  int x=20; // left-value 
+  int&& rx = x * 2:
+  ```
+
+- TIps:
+
+  - 右值引用在初始化之后就可以正常赋值;
+  - 右值引用无法使用左值进行赋值.
+
+
+
+#### 引用参数与函数重载
+
+```cpp
+#include <iostream>
+using namespace std;
+
+void fun(int& lref){
+   cout << "lref = " << lref << endl;
+}
+
+void fun(int&& rref){
+   cout << "rref = " << rref << endl;
+}
+
+int main(){
+   int x = 10;
+   fun(x);
+   fun(10);
+}
+```
+
+**Output**:
+
+```cpp
+lref = 10
+rref = 10
+```
+
+> 1. 字面量`10`作为右值, 可以通过右值引用作为函数的参数;
+> 2. 具有明确地址的变量 `x`是左值;
+> 3.  C++ 允许在同一个作用域内声明多个具有相同名称但参数列表不同的函数。这被称为**函数重载**。编译器通过检查函数调用时提供的参数类型和数量来决定调用哪个重载函数。
+
+
+
+另外, 加上`const`之后, `& `的形参也可以接受左值作为实参, 比如: `void fun (const int& clref) {...}`
+
+> 但是如果已经存在右值实参作为形参的同名函数, 将会优先选择后者进行重载.
+
+
+
+## Constants
+
+使用 `const`声明常量, 常量的值不可修改.
+
+`const`声明集合的时候, 其中的值在**编译期间不可知**, 因此无法在代码中, 使用常量集合内部的值进行操作.
+
+```cpp
+const int i[] = {1,2,3};
+float f[i[2]]; // Illegal!
+```
+
+
+
+使用`const`对指针类型进行操作的时候:
+
+1. 忽略类似于 `char`之类的类型, 只关注 `const`与 `*`之间的位置关系;
+2. 如果是 `const *p` 意思是指针指向的内容不可通过这个指针进行更改;
+3. 如果是 `* const p`意思是指针指向的对象不可更改, 但是可以通过 `*p` 的方式改写对象的值
+
+
+
+---
+
+关于字符指针与字符数组:
+
+- `char  *p = "hello";` 实际上是 `const char *p`, 也就是说不允许修改 `*p`;
+- 而 `char p[] = 'hello';` 则可以通过`*p` 修改.
+
+
+
+---
+
+如果**成员函数**前加了 `const`标记, 意味着无法通过该成员函数改变成员变量的值.
+
+> 因此 `const`修饰的成员函数具有 `this`指针(可访问), 不要与 `static`修饰的静态成员函数混淆! 后者不具有 `this`指针.
+
+
+
+
+
+
+
 # 其他
+
+- 使用指针作为参数, 而不是直接将结构体本身作为参数传递给函数, 可以避免对结构体的复制. 从而更加高效.
+  - 另外, 如果希望修改结构体本身的数据, 必须传递指向它本身的指针.
+
+
+
+## 作用域与生存期
+
+本地: 均为本地
+
+全局: 均为全局
+
+静态本地: 作用域是本地, 生存期是全局
+
+静态全局: ~
+
+
+
 ## Includes
+
 ### Algorithm
 `copy(first, last, result)`:
 - `fisrt`和`last`是输入迭代器, 表示要复制的范围, 左闭右开即`last`应当指向要复制元素的下一个位置. 必须支持读取操作和递增操作;
@@ -1236,9 +2197,9 @@ p = &c;  // 常量指针的值可以改变
     ```cpp
     std::vector<int> source = {1, 2, 3, 4, 5};
     std::vector<int> destination(5); // 确保目标容器有足够的空间
-
+    
     std::copy(source.begin(), source.end(), destination.begin());
-
+    
     for (int num : destination) {
         std::cout << num << " "; // 输出：1 2 3 4 5
     }
@@ -1251,7 +2212,7 @@ p = &c;  // 常量指针的值可以改变
     for(int i = 0; i < 5; i++){
         vec.push_back(i);
     }
-
+    
     vec.erase(vec.begin()+2); //删除第三个元素
     copy(vec.begin(), vec.end(), ostream_iterator<int>(cout, ","));
     cout << endl;
@@ -1405,4 +2366,87 @@ cout << endl;                    // 换行
 
 }
 ```
+
+
+
+# 课堂缓冲区
+
+- 私有的边界是 `class`而非对象. 也就是说, **相同类的对象可以直接访问对方的私有属性**.
+
+- 不同文件之间的全局变量, 初始化的前后顺序由链接器随机决定. 此时需要确保它们之间没有初始化的依赖.
+- 需要尽可能地避免使用全局变量.
+
+# 题目梳理
+
+## HW2
+
+![image-20250225160042809](cpp学习记录.assets/image-20250225160042809.png)
+
+- ANS:  B
+- 由于此处的`map`以`char *`作为key, 同时初始化`str`的操作发生在读取操作的外部, 因此只发生了一次的初始化, 地址是一开始就确定的值. 因此插入时总是插入到同一个键值对.
+
+---
+
+![image-20250225160652522](cpp学习记录.assets/image-20250225160652522.png)
+
+- 逗号表达式, 从左到右分别计算,最后返回的结果是最右侧的值, 此处为1. 
+
+> - `vector<int> v(10);` 创建包含10个元素的容器, 每个元素初始化为 `0`;
+>
+> - `vector <int> v(10, 1);`: 创建包含10个元素的容器, 但是都初始化为 `1`;
+> - `vector <int> v{10, 1};`: 创建包含10,1 这2个元素的容器;
+> - 此外, 还可以使用 `vector <int> v`;创建一个空的容器; 
+> - 同时也还可以用 **迭代器**进行初始化: `vector <int> v(arr, arr + 5);`
+
+
+
+## HW3
+
+- 类成员的默认访问权限是 **<u>私有的</u>**, 即不显式声明访问修饰符, 默认为 `private`;
+- 
+
+
+
+## HW4
+
+### 可变大小矩阵:
+
+```cpp
+#include<iostream>
+#include<vector>
+
+using namespace std;
+
+
+class Matrix{
+private:
+    int r,c;
+    vector<vector<int>> m; // 二维向量, 每个向量元素是一个一维向量
+
+public:
+    Matrix(int r, int c) : r(r),c(c){
+        m.resize(r, vector<int>(c)); // 分配r个一维向量, 每个一维向量的大小为c
+    }
+
+	...
+
+    void transform(){
+        vector<vector<int>> new_m(c, vector<int>(r,0)); //	声明一个临时的二维向量
+        
+    	// 将矩阵转置, 放入临时的向量
+        for(int i = 0; i < c; i++){
+            for(int j = 0 ; j< r; j++){
+                new_m[i][j] = m[j][i];
+            }
+        }
+
+        swap(r,c); //改变矩阵的行与列
+        m = move(new_m); //使用 move 直接将临时变量的所有权交给m, 避免拷贝
+    }
+};
+```
+
+> 此处值得注意的是 `resize`在二维向量中的使用, 以及 `move`直接给予“所有权”的特性.
+
+
 

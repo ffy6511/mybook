@@ -8,6 +8,24 @@ body, .markdown-body {
     font-family: "wenkai", sans-serif;
 }
 
+
+code {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+
+	font-size: 1em;
+	background-color: #f0f0f0; /* 设置背景颜色为浅灰色 */
+	color: #dc3545; /* 设置文字颜色为红色 (可以使用你喜欢的红色) */
+	padding: 2px 4px; /* 添加一些内边距，使背景更明显 */
+	border-radius: 6px; /* 可选：添加圆角 */
+	padding: 0.3em !important;
+	margin-left: 0.2em;
+	margin-right: 0.2em;
+	padding-left: 0.3em;
+	padding-right: 0.3em;
+  }
+
+
+
 /* Timeline styles */
 .timeline-container {
     position: relative;
